@@ -14,6 +14,8 @@ public class AutoPilot : MonoBehaviour
 
     private bool _autoPilot = false;
     private float _accuracy = 0.5f;
+    private float _rotAccuracy = 0.5f;
+    private float _rotSnapness = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,8 +47,13 @@ public class AutoPilot : MonoBehaviour
             if (Distance(gameObject.transform.position, target.position) > _accuracy)
             {
                 // Rotate the player towards the target
-                double angle = CalculateAngle(gameObject.transform, target.transform);
-                gameObject.transform.Rotate(0.0f, (float) angle * Mathf.Rad2Deg, 0.0f, Space.Self);
+                double angle = CalculateSignedAngle(gameObject.transform, target.transform) * Mathf.Rad2Deg;
+
+                if (Math.Abs(angle) > _rotAccuracy) // avoid rotation if the angle is not big enough (smoother movement)
+                {
+                    gameObject.transform.Rotate(0.0f, (float) angle * _rotSnapness, 0.0f, Space.Self); // we use the _rotSnapness to smooth the rotation around,
+                                                                                                       // don't just rotate and stick immediately to the target
+                }
 
                 // Move the player towards the target
                 gameObject.transform.Translate(gameObject.transform.forward * speed * Time.deltaTime, Space.World);
@@ -60,7 +67,7 @@ public class AutoPilot : MonoBehaviour
         return Norm(p2-p1);
     }
 
-    private double CalculateAngle(Transform player, Transform target)
+    private double CalculateSignedAngle(Transform player, Transform target)
     {
         Vector3 forwardDir = player.transform.forward;
         Vector3 targetDir = target.transform.position - player.transform.position;
@@ -68,23 +75,16 @@ public class AutoPilot : MonoBehaviour
 
         Vector3 ortho = CrossProduct(forwardDir, targetDir);
 
-        // Debug.DrawRay(player.transform.position, forwardDir, Color.green,5.0f);
-        // Debug.DrawRay(player.transform.position, targetDir, Color.red, 5.0f);
-        // Debug.DrawRay(player.transform.position, ortho, Color.blue, 5.0f);
+        Debug.DrawRay(player.transform.position, forwardDir, Color.green,5.0f);
+        Debug.DrawRay(player.transform.position, targetDir, Color.red, 5.0f);
+        Debug.DrawRay(player.transform.position, ortho, Color.blue, 5.0f);
         
         double angle = Math.Acos((DotProduct(forwardDir, targetDir))/(Norm(forwardDir)*Norm(targetDir)));
         double signedAngle = angle * Math.Sign(ortho.y);
 
         return signedAngle;
     }
-
-    private Vector3 Normalize(Vector3 v)
-    {
-        float norm = (float) Norm(v);
-
-        return new Vector3(v.x/norm, v.y/norm, v.z/norm);
-    }
-
+    
     private double DotProduct(Vector3 v, Vector3 w)
     {
         return ((v.x*w.x)+(v.y*w.y)+(v.z*w.z));
@@ -93,6 +93,12 @@ public class AutoPilot : MonoBehaviour
     private double Norm(Vector3 v)
     {
         return Math.Sqrt(Math.Pow(v.x, 2) + (Math.Pow(v.y, 2)) + (Math.Pow(v.z, 2)));
+    }
+
+    private Vector3 Normalize(Vector3 v)
+    {
+        float norm = (float) Norm(v);
+        return new Vector3(v.x/norm, v.y/norm, v.z/norm);
     }
 
     private Vector3 CrossProduct(Vector3 v, Vector3 w)

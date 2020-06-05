@@ -14,6 +14,8 @@ public class AutoPilotUnity : MonoBehaviour
 
     private bool _autoPilot = false;
     private float _accuracy = 0.5f;
+    private float _rotAccuracy = 0.5f;
+    private float _rotSnapness = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +52,12 @@ public class AutoPilotUnity : MonoBehaviour
 
                 // Rotate the player towards the target
                 float angle = Vector3.SignedAngle(forwardDir, targetDir, gameObject.transform.up);
-                gameObject.transform.Rotate(0.0f, angle, 0.0f, Space.Self);
+
+                if (Math.Abs(angle) > _rotAccuracy) // avoid rotation if the angle is not big enough (smoother movement)
+                {
+                    gameObject.transform.Rotate(0.0f, angle * _rotSnapness, 0.0f, Space.Self); // we use the _rotSnapness to smooth the rotation around,
+                                                                                               // don't just rotate and stick immediately to the target
+                }
 
                 // Move the player towards the target
                 gameObject.transform.Translate(gameObject.transform.forward * speed * Time.deltaTime, Space.World);
