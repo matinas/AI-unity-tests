@@ -54,7 +54,7 @@ public class AutoaimShoot : MonoBehaviour
         var angle = CalculateTargetAngle(true);
         if (angle != null)
         {
-            // Debug.Log($"The angle is {angle}");
+            Debug.Log($"The angle is {angle}");
             transform.localEulerAngles = new Vector3(-angle.Value, 0.0f, 0.0f);
         }
         else
@@ -75,9 +75,8 @@ public class AutoaimShoot : MonoBehaviour
             {
                 var go = GameObject.Instantiate(bulletPrefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation, SpawnPoint);
 
-
                 // To use the Unity physics engine to apply the speed that hits the target uncomment this and use the PhysicsBullet prefab
-                // To use our custom velocity update implementation leave this commented, use the Bullet prefab with the ProjectileBullet enabled (won't have colissions though)
+                // To use the custom velocity update implementation leave this commented, use the Bullet prefab with the ProjectileBullet enabled (won't have colissions though)
 
                 // Shoot the bullet with the selected speed
                 go.GetComponent<Rigidbody>().velocity = speed * transform.forward; // Apply the intial speed in the forward direction
