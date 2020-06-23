@@ -10,10 +10,13 @@ public class FollowWaypointsWithTracker : MonoBehaviour
     [SerializeField]
     private float Speed;
 
+    [SerializeField]
+    private float TrackerAheadThreshold;
+
     private GameObject _tracker;
 
     private int _currentWpIndex;
-    private float _accuracy = 0.5f;
+    private float _accuracy = 1.0f;
     private bool startTraversal = false;
 
     private float _rotSnapness = 0.05f;
@@ -29,7 +32,8 @@ public class FollowWaypointsWithTracker : MonoBehaviour
         _tracker.transform.position = transform.position;
         _tracker.transform.rotation = transform.rotation;
         _tracker.transform.localScale *= 0.25f;
-        DestroyImmediate(_tracker.GetComponent<Rigidbody>()); // we don't need our tracker to react to physics
+        DestroyImmediate(_tracker.GetComponent<Collider>()); // we don't need our tracker to react to physics
+        DestroyImmediate(_tracker.GetComponent<MeshRenderer>()); // we don't need our tracker to be visible
 
         _trackerSpeed = Speed * 1.1f; // we need the progress tracker to always go ahead our object
     }
@@ -51,10 +55,15 @@ public class FollowWaypointsWithTracker : MonoBehaviour
 
     // To counter this issue we need a way to make our object follow the waypoints path even when it doesn't reach a specific waypoint
     // There are many different ways of solving this. One of them is using a Progress Tracker, which follows the path exactly (no smooth
-    // turning and physics needed, so we avoid the aforementioned issue), and get our object to follow the tracker instead of each waypoint
+    // turning and physics needed, so we avoid the aforementioned issue) so it's super accurate, and get our object to follow the tracker
+    // instead of each waypoint
 
     void ProgressTrackerUpdate()
     {
+        // if the tracker gets too much ahead of our object, we wait for the object to catch up (don't update tracker's position).
+        // this avoids the object to take too much shortcuts in case it struggles to catch up with the tracker because something pulled it off the way for example
+        if (Vector3.Distance(_tracker.transform.position, transform.position) > TrackerAheadThreshold) return;
+
         if (_currentWpIndex < Waypoints.Count)
         {
             var currentTarget = Waypoints[_currentWpIndex];

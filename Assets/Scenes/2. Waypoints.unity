@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 353495396}
   - component: {fileID: 353495395}
   - component: {fileID: 353495394}
+  - component: {fileID: 353495399}
   - component: {fileID: 353495393}
   m_Layer: 0
   m_Name: NPC 1 (2)
@@ -372,7 +373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &353495393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -387,7 +388,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &353495394
 MonoBehaviour:
@@ -396,7 +397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353495392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -485,6 +486,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &353495399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353495392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 3
+  TrackerAheadThreshold: 2
 --- !u!1 &367258385
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +794,7 @@ GameObject:
   - component: {fileID: 700588318}
   - component: {fileID: 700588317}
   - component: {fileID: 700588316}
+  - component: {fileID: 700588321}
   - component: {fileID: 700588315}
   m_Layer: 0
   m_Name: NPC 2 (1)
@@ -775,7 +802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &700588315
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -790,7 +817,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &700588316
 MonoBehaviour:
@@ -799,7 +826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700588314}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -888,6 +915,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700588321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700588314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 1
+  TrackerAheadThreshold: 2
 --- !u!1001 &756134867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1141,6 +1193,7 @@ GameObject:
   - component: {fileID: 1176291161}
   - component: {fileID: 1176291160}
   - component: {fileID: 1176291159}
+  - component: {fileID: 1176291164}
   - component: {fileID: 1176291158}
   m_Layer: 0
   m_Name: NPC 1 (1)
@@ -1148,7 +1201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1176291158
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1163,7 +1216,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1176291159
 MonoBehaviour:
@@ -1172,7 +1225,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176291157}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -1261,6 +1314,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176291164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176291157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 4
+  TrackerAheadThreshold: 2
 --- !u!1 &1247949170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1604,7 @@ GameObject:
   - component: {fileID: 1368552599}
   - component: {fileID: 1368552598}
   - component: {fileID: 1368552597}
+  - component: {fileID: 1368552602}
   - component: {fileID: 1368552596}
   m_Layer: 0
   m_Name: NPC 2
@@ -1533,7 +1612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1368552596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1557,7 +1636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368552595}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -1646,6 +1725,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1368552602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368552595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 5
+  TrackerAheadThreshold: 2
 --- !u!1 &1443826232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1803,7 @@ GameObject:
   - component: {fileID: 1534947391}
   - component: {fileID: 1534947390}
   - component: {fileID: 1534947389}
+  - component: {fileID: 1534947394}
   - component: {fileID: 1534947388}
   m_Layer: 0
   m_Name: NPC 3 (2)
@@ -1706,7 +1811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1534947388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1721,7 +1826,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1534947389
 MonoBehaviour:
@@ -1730,7 +1835,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534947387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -1819,6 +1924,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1534947394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534947387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 1
+  TrackerAheadThreshold: 2
 --- !u!1 &1540648556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,7 +1978,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540648556}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -1874,7 +2004,7 @@ BoxCollider:
   m_GameObject: {fileID: 1540648556}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1951,7 +2081,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1540648563
 MonoBehaviour:
@@ -1977,6 +2107,7 @@ MonoBehaviour:
   - {fileID: 20647428}
   - {fileID: 1148382388}
   Speed: 5
+  TrackerAheadThreshold: 1
 --- !u!1 &1638753635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,6 +2121,7 @@ GameObject:
   - component: {fileID: 1638753639}
   - component: {fileID: 1638753638}
   - component: {fileID: 1638753637}
+  - component: {fileID: 1638753642}
   - component: {fileID: 1638753636}
   m_Layer: 0
   m_Name: NPC 3
@@ -1997,7 +2129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1638753636
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2012,7 +2144,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1638753637
 MonoBehaviour:
@@ -2021,7 +2153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638753635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -2110,6 +2242,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1638753642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638753635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 6
+  TrackerAheadThreshold: 2
 --- !u!1001 &1991341106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2203,6 +2360,7 @@ GameObject:
   - component: {fileID: 2000012106}
   - component: {fileID: 2000012105}
   - component: {fileID: 2000012104}
+  - component: {fileID: 2000012109}
   - component: {fileID: 2000012103}
   m_Layer: 0
   m_Name: NPC 2 (2)
@@ -2210,7 +2368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &2000012103
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2225,7 +2383,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &2000012104
 MonoBehaviour:
@@ -2234,7 +2392,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000012102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -2323,6 +2481,31 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2000012109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000012102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 2
+  TrackerAheadThreshold: 2
 --- !u!1 &2078106937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2519,7 @@ GameObject:
   - component: {fileID: 2078106941}
   - component: {fileID: 2078106940}
   - component: {fileID: 2078106939}
+  - component: {fileID: 2078106944}
   - component: {fileID: 2078106938}
   m_Layer: 0
   m_Name: NPC 3 (1)
@@ -2343,7 +2527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &2078106938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2358,7 +2542,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &2078106939
 MonoBehaviour:
@@ -2367,7 +2551,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078106937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
   m_Name: 
@@ -2383,7 +2567,7 @@ MonoBehaviour:
   - {fileID: 1991341107}
   - {fileID: 20647428}
   - {fileID: 1148382388}
-  Speed: 6
+  Speed: 5
 --- !u!65 &2078106940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2456,3 +2640,28 @@ Transform:
   m_Father: {fileID: 661243666}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2078106944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078106937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - {fileID: 756134868}
+  - {fileID: 1284253459}
+  - {fileID: 311183937}
+  - {fileID: 382670457}
+  - {fileID: 69512637}
+  - {fileID: 1332945545}
+  - {fileID: 1073505139}
+  - {fileID: 1991341107}
+  - {fileID: 20647428}
+  - {fileID: 1148382388}
+  Speed: 6
+  TrackerAheadThreshold: 2
