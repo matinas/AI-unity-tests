@@ -18,8 +18,8 @@ public class ProjectileBullet : MonoBehaviour
         _autoAimer = transform.GetComponentInParent<AutoaimShoot>();
         Vector3 targetDir = _autoAimer.target.position - _autoAimer.transform.position;
 
-        _angle = Vector3.SignedAngle(transform.forward, targetDir, Vector3.right);
-        // Debug.Log($"Bullet angle is {_angle}");
+        _angle = Vector3.SignedAngle(transform.forward, targetDir, transform.right);
+        Debug.Log($"Bullet angle is {_angle}");
 
         v0x = _speed * Mathf.Cos(_angle * Mathf.Deg2Rad);
         v0y = _speed * Mathf.Sin(_angle * Mathf.Deg2Rad);

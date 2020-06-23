@@ -79,8 +79,8 @@ public class AutoaimShoot : MonoBehaviour
                 // To use the custom velocity update implementation leave this commented, use the Bullet prefab with the ProjectileBullet enabled (won't have colissions though)
 
                 // Shoot the bullet with the selected speed
-                go.GetComponent<Rigidbody>().velocity = speed * transform.forward; // Apply the intial speed in the forward direction
-                go.transform.parent = BulletContainer;
+                // go.GetComponent<Rigidbody>().velocity = speed * transform.forward; // Apply the intial speed in the forward direction
+                // go.transform.parent = BulletContainer;
             }
         }
     }
