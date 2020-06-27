@@ -97,9 +97,16 @@ namespace AITests.Pathfinding.Graphs
             throw new NotImplementedException();
         }
 
-        public Node<T> GetNode(int ID)
+        public Node<T> GetNode(int id)
         {
-            return nodes.Keys.Where(n => n.Id == ID).First();
+            return nodes.Keys.Where(n => n.Id == id).First();
+        }
+
+        public List<Tuple<Node<T>, float>> GetAdjacentNodes(Node<T> node)
+        {
+            List<Tuple<Node<T>, float>> adjNodes;
+
+            return nodes.TryGetValue(node, out adjNodes) ? adjNodes : null;
         }
     }
 }

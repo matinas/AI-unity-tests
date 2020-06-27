@@ -10,10 +10,43 @@
             this.Id = Id;
         }
 
-        public Node(int Id, T info)
+        public Node(int id, T info)
         {
-            this.Id = Id;
-            this.Info = Info;
+            this.Id = id;
+            this.Info = info;
+        }
+
+        public override bool Equals(object n)
+        {
+            return IsEqual(n as Node<T>);
+        }
+
+        private bool IsEqual(Node<T> n)
+        {
+            return this.Id == n.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 227837733;
+            hashCode = hashCode * -1521134295 + Id.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(Node<T> node1, Node<T> node2)
+        {
+            if (object.ReferenceEquals(node1, null)) return object.ReferenceEquals(node2, null);
+            if (object.ReferenceEquals(node2, null)) return object.ReferenceEquals(node1, null);
+
+            return node1.IsEqual(node2);
+        }
+
+        public static bool operator !=(Node<T> node1, Node<T> node2)
+        {
+            if (object.ReferenceEquals(node1, null)) return !object.ReferenceEquals(node2, null);
+            if (object.ReferenceEquals(node2, null)) return !object.ReferenceEquals(node1, null);
+
+            return !node1.IsEqual(node2);
         }
     }
 }

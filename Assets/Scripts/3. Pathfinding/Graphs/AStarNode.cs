@@ -2,7 +2,6 @@
 {
     public class AStarNode
     {
-        public UnityEngine.Vector3 position { get; private set; }
         public float Heuristic { get; set; }
         public float Cost { get; set; }
         public float F
@@ -13,9 +12,18 @@
             }
         }
 
-        public int Parent { get; set; }
+        public Node<AStarNode> Parent { get; set; }
 
-        public AStarNode(UnityEngine.Vector3 position)
+        public UnityEngine.Vector3 position { get; private set; }
+
+        public AStarNode()
+        {
+            this.Heuristic = 0.0f;
+            this.Cost = float.MaxValue;
+            this.Parent = null;
+        }
+
+        public AStarNode(UnityEngine.Vector3 position) : this()
         {
             this.position = position;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AITests.Pathfinding.Graphs;
 using AITests.Pathfinding.Graphs.AStar;
+using System.Linq;
 
 namespace AITests.Pathfinding
 {
@@ -13,7 +14,7 @@ namespace AITests.Pathfinding
             {
                 if (_instance == null)
                 {
-                    return new AStarPathfinder();
+                    _instance = new AStarPathfinder();
                 }
 
                 return _instance;
@@ -78,9 +79,118 @@ namespace AITests.Pathfinding
 
         public List<int> FindAStarPath(int from, int to)
         {
-            // TODO
+            List<int> path = new List<int>();
 
-            return null;
+            Node<AStarNode> originNode = _pathGraph.GetNode(from);
+            Node<AStarNode> destinationNode = _pathGraph.GetNode(to);
+
+            // fill A* data for the origin node
+            originNode.Info.Heuristic = originNode.Info.Cost = 0;
+            originNode.Info.Parent = null;
+
+            Node<AStarNode> currentNode = originNode;
+            
+            List<Node<AStarNode>> openList = new List<Node<AStarNode>>() { currentNode };
+            List<Node<AStarNode>> closedList = new List<Node<AStarNode>>() { currentNode };
+
+            while ((openList.Count != 0) || (currentNode != null))
+            {
+                openList.Remove(currentNode);
+
+                IEnumerable<Tuple<Node<AStarNode>, float>> adjNodesData = _pathGraph.GetAdjacentNodes(currentNode);
+                foreach (var adjNodeData in adjNodesData)
+                {
+                    ComputeAStarNodeData(adjNodeData, in currentNode, destinationNode.Info.position);
+                }
+
+                // TODO: check whether the destination is among the adjacent nodes. If so, we can get the current best path
+                // cost to destination, and use that value as a baseline to prune future paths, so if we are trying to build
+                // a path which cost is already higher than the best one found we can just prune it (assuming all costs are positive)
+
+                // get the not-yet processed adjacent nodes (not in the Closed list)
+                IEnumerable<Node<AStarNode>> adjNodes = adjNodesData.Select(n => n.Item1).Where(x => !closedList.Contains(x));
+
+                if (adjNodes.Count() > 0)
+                {
+                    // get all the nodes not already contained in the Open list (avoid dups) and add them to the Open list
+                    IEnumerable<Node<AStarNode>> newAdjNodes = adjNodes.Where(n => !openList.Contains(n));
+                    openList.AddRange(newAdjNodes);
+
+                    // select the best candidate to move into from the adjacent nodes
+                    currentNode = SelectBestNeighbour(adjNodes);
+
+                    if (currentNode != null)
+                    {
+                        openList.Remove(currentNode);
+                        closedList.Add(currentNode);
+                    }
+                }
+                else // get any other pending-to-process node in the Open list
+                {
+                    currentNode = openList.FirstOrDefault(); // will return null if there aren't nodes pending
+                    openList.Remove(currentNode);
+                }
+            }
+
+            // once the graph was processed and all the A* information filled, we compute the path going backwards from the destination node
+            path = ComputeBackwardsPath(destinationNode, originNode);
+
+            return path;
+        }
+
+        private void ComputeAStarNodeData(Tuple<Node<AStarNode>, float> nData, in Node<AStarNode> currNode, UnityEngine.Vector3 destPosition)
+        {
+            Node<AStarNode> node = nData.Item1;
+            float cost = nData.Item2;
+
+            // fill the A* data for the node
+            AStarNode nodeInfo = node.Info;
+            nodeInfo.Heuristic = UnityEngine.Vector3.Distance(nodeInfo.position, destPosition);
+
+            // update cost and parent only if we are in a better scenario
+            if ((currNode.Info.Cost + cost) < nodeInfo.Cost)
+            {
+                nodeInfo.Cost = currNode.Info.Cost + cost;
+                nodeInfo.Parent = currNode;
+            }
+        }
+
+        private Node<AStarNode> SelectBestNeighbour(IEnumerable<Node<AStarNode>> neighbours)
+        {
+            var first = neighbours.First();
+
+            return first != null ? neighbours.SelectBest((n1,n2) => n1.Info.F < n2.Info.F) : null;
+        }
+
+        private List<int> ComputeBackwardsPath(Node<AStarNode> destinationNode, Node<AStarNode> originNode)
+        {
+            List<int> path = new List<int> { destinationNode.Id };
+            var currentNode = destinationNode;
+
+            while (currentNode != originNode)
+            {
+                currentNode = currentNode.Info.Parent;
+                path.Add(currentNode.Id);
+            }
+
+            return path;
+        }
+    }
+
+    public static class AStarExtensionMethods
+    {
+        public static Node<AStarNode> SelectBest(this IEnumerable<Node<AStarNode>> nodes, Func<Node<AStarNode>, Node<AStarNode>, bool> predicate)
+        {
+            var best = nodes.First();
+            foreach (var n in nodes)
+            {
+                if (predicate(n,best))
+                {
+                    best = n;
+                }
+            }
+
+            return best;
         }
     }
 }

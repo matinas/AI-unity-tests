@@ -17,6 +17,7 @@ namespace AITests.Pathfinding.Graphs
         void RemoveBidirectionalEdge(Node<T> node1, Node<T> node2);
 
         Node<T> GetNode(int ID);
+        List<Tuple<Node<T>, float>> GetAdjacentNodes(Node<T> node);
     }
 }
 
