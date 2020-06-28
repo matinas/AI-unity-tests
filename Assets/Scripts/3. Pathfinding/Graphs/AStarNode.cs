@@ -14,18 +14,23 @@
 
         public Node<AStarNode> Parent { get; set; }
 
-        public UnityEngine.Vector3 position { get; private set; }
+        public UnityEngine.Vector3 position { get; set; }
 
         public AStarNode()
         {
-            this.Heuristic = 0.0f;
-            this.Cost = float.MaxValue;
-            this.Parent = null;
+            Reset();
         }
 
         public AStarNode(UnityEngine.Vector3 position) : this()
         {
             this.position = position;
+        }
+
+        public void Reset()
+        {
+            this.Heuristic = 0.0f;
+            this.Cost = float.MaxValue;
+            this.Parent = null;
         }
     }
 }

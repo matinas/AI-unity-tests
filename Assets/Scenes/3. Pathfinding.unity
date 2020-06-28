@@ -341,10 +341,9 @@ GameObject:
   - component: {fileID: 1684133109}
   - component: {fileID: 1684133108}
   - component: {fileID: 1684133107}
-  - component: {fileID: 1684133106}
-  - component: {fileID: 1684133105}
   - component: {fileID: 1684133104}
   - component: {fileID: 1684133111}
+  - component: {fileID: 1684133105}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -377,46 +376,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1684133103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd4e6ae65903eaa428fe6a4cf77b5329, type: 3}
+  m_Script: {fileID: 11500000, guid: 56678ad64c1ba044ba750d240fb084cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Speed: 5
-  TrackerAheadThreshold: 1
---- !u!114 &1684133106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684133103}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d13df7bad355ceb41987d401ec655661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Speed: 5
+  Speed: 0.27
 --- !u!65 &1684133107
 BoxCollider:
   m_ObjectHideFlags: 0

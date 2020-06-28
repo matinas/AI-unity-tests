@@ -56,9 +56,11 @@ namespace AITests.Pathfinding
                 // add adjacent nodes edges
                 for (int i=0; i < wp.AdjacentNodes.Count; ++i)
                 {
-                    Node<AStarNode> adjNode = new Node<AStarNode>(wp.AdjacentNodes[i].ID, new AStarNode(wp.AdjacentNodes[i].transform.position));
-                    
+                    Node<AStarNode> adjNode = graph.GetNode(wp.AdjacentNodes[i].ID);
+
+                    if (adjNode == null) throw new Exception($"Can't add edge because there's no adjacent node with ID {wp.AdjacentNodes[i].ID}");
                     if (wp.EdgeCosts.Count <= i) throw new Exception($"Can't add edge because there's a cost missing for node with ID {wp.ID}");
+
                     float cost = wp.EdgeCosts[i];
 
                     Tuple<Node<AStarNode>, float> edge = new Tuple<Node<AStarNode>, float>(adjNode, cost);
@@ -93,6 +95,9 @@ namespace AITests.Pathfinding
             List<Node<AStarNode>> openList = new List<Node<AStarNode>>() { currentNode };
             List<Node<AStarNode>> closedList = new List<Node<AStarNode>>() { currentNode };
 
+            // NOTE: i think we are following more like an actual Dijkstra algorithm here. for a pure A* we should stop
+            // searching as soon as we get to the destination node (if the heuristics are well chosen that one should be the best path)
+
             while ((openList.Count != 0) || (currentNode != null))
             {
                 openList.Remove(currentNode);
@@ -125,7 +130,7 @@ namespace AITests.Pathfinding
                         closedList.Add(currentNode);
                     }
                 }
-                else // get any other pending-to-process node in the Open list
+                else // get any other pending-to-process node in the Open list...
                 {
                     currentNode = openList.FirstOrDefault(); // will return null if there aren't nodes pending
                     openList.Remove(currentNode);
@@ -134,8 +139,19 @@ namespace AITests.Pathfinding
 
             // once the graph was processed and all the A* information filled, we compute the path going backwards from the destination node
             path = ComputeBackwardsPath(destinationNode, originNode);
+            path.Reverse();
+
+            ClearAStarData(); // clear graph data so to get it ready for next execution
 
             return path;
+        }
+
+        private void ClearAStarData()
+        {
+            foreach(var node in _pathGraph.GetNodes())
+            {
+                node.Info.Reset();
+            }
         }
 
         private void ComputeAStarNodeData(Tuple<Node<AStarNode>, float> nData, in Node<AStarNode> currNode, UnityEngine.Vector3 destPosition)

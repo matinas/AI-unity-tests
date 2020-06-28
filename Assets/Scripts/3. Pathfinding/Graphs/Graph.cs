@@ -102,11 +102,19 @@ namespace AITests.Pathfinding.Graphs
             return nodes.Keys.Where(n => n.Id == id).First();
         }
 
+        public List<Node<T>> GetNodes()
+        {
+            return nodes.Keys.ToList();
+        }
+
         public List<Tuple<Node<T>, float>> GetAdjacentNodes(Node<T> node)
         {
-            List<Tuple<Node<T>, float>> adjNodes;
-
-            return nodes.TryGetValue(node, out adjNodes) ? adjNodes : null;
+            if (nodes.Keys.Contains(node))
+            {
+                return nodes[node];
+            }
+            else
+                return null;
         }
     }
 }

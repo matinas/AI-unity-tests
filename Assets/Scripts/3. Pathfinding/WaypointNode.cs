@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace AITests.Pathfinding
 {
+    // waypoints nodes are set in the scene based on the "Scene graph.png" graph inside "3. Pathfinding" folder
+
     public class WaypointNode : MonoBehaviour
     {
         public int ID;

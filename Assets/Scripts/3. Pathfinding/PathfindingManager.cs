@@ -5,8 +5,14 @@ using System.Collections.Generic;
 
 namespace AITests.Pathfinding
 {
+    public delegate void AStarPathComputed(List<WaypointNode> nodes);
+
     public class PathfindingManager : MonoBehaviour
     {
+        public event AStarPathComputed AStarPathComputed;
+
+        public Action<IEnumerable<WaypointNode>> OnAStarPathComputed;
+
         private static PathfindingManager _instance;
 
         public static PathfindingManager Instance
@@ -22,7 +28,7 @@ namespace AITests.Pathfinding
             }
         }
 
-        public IEnumerable<WaypointNode> _waypoints;
+        public IEnumerable<WaypointNode> _waypoints; // these waypoints are set in the scene based on the "Scene graph.png" graph inside "3. Pathfinding" folder
 
         [SerializeField]
         private Transform _player;
@@ -66,7 +72,13 @@ namespace AITests.Pathfinding
                 WaypointNode from = ClosestToPlayer();
                 List<int> path = AStarPathfinder.Instance.FindAStarPath(from.ID, wp.ID);
 
-                Debug.Log($"Path from node {from.ID} to {wp.ID} is: " + path);
+                Debug.Log($"Path from node {from.ID} to {wp.ID} is: " + string.Join(", ", path.Select(x => x.ToString())));
+
+                // select the proper waypoint nodes based on the calculated path
+                IEnumerable<WaypointNode> wpPath = path.ConvertAll<WaypointNode>(x => _waypoints.Where(w => w.ID == x).FirstOrDefault());
+
+                OnAStarPathComputed.Invoke(wpPath);
+                //AStarPathComputed.Invoke(wpPath);
             }
         }
 
