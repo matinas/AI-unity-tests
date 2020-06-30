@@ -5,13 +5,9 @@ using System.Collections.Generic;
 
 namespace AITests.Pathfinding
 {
-    public delegate void AStarPathComputed(List<WaypointNode> nodes);
-
     public class PathfindingManager : MonoBehaviour
     {
-        public event AStarPathComputed AStarPathComputed;
-
-        public Action<IEnumerable<WaypointNode>> OnAStarPathComputed;
+        public event Action<IEnumerable<WaypointNode>> OnAStarPathComputed;
 
         private static PathfindingManager _instance;
 
@@ -78,7 +74,6 @@ namespace AITests.Pathfinding
                 IEnumerable<WaypointNode> wpPath = path.ConvertAll<WaypointNode>(x => _waypoints.Where(w => w.ID == x).FirstOrDefault());
 
                 OnAStarPathComputed.Invoke(wpPath);
-                //AStarPathComputed.Invoke(wpPath);
             }
         }
 

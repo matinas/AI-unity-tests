@@ -95,8 +95,10 @@ namespace AITests.Pathfinding
             List<Node<AStarNode>> openList = new List<Node<AStarNode>>() { currentNode };
             List<Node<AStarNode>> closedList = new List<Node<AStarNode>>() { currentNode };
 
-            // NOTE: i think we are following more like an actual Dijkstra algorithm here. for a pure A* we should stop
+            // NOTE1: i think we are following more like an actual Dijkstra algorithm here. for a pure A* we should stop
             // searching as soon as we get to the destination node (if the heuristics are well chosen that one should be the best path)
+
+            // NOTE2: we also should better get rid of the cost at the edges entirely and just use the distance between neighbors instead to calculate the G values
 
             while ((openList.Count != 0) || (currentNode != null))
             {
@@ -166,7 +168,7 @@ namespace AITests.Pathfinding
             // update cost and parent only if we are in a better scenario
             if ((currNode.Info.Cost + cost) < nodeInfo.Cost)
             {
-                nodeInfo.Cost = currNode.Info.Cost + cost;
+                nodeInfo.Cost = currNode.Info.Cost + cost; // TODO: it's better to use the distance between both nodes here instead of an explicit cost (check NOTE2 above)
                 nodeInfo.Parent = currNode;
             }
         }
