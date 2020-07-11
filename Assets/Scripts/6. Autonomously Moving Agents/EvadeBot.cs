@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class PursuitBot : MonoBehaviour
+public class EvadeBot : MonoBehaviour
 {
     private NavMeshAgent _agent;
 
@@ -16,11 +16,10 @@ public class PursuitBot : MonoBehaviour
     [SerializeField]
     private float MaxSeekAngle;
 
-    private Vector3 _playerPrevPosition;
+    [SerializeField]
+    private float MaxAllowedDistance;
 
-    // Debug.Log($"Player displacement: ({playerDisplacement.x}, {playerDisplacement.y}, {playerDisplacement.z})");
-    // Debug.Log($"Player velocity: ({playerVelocity.x}, {playerVelocity.y}, {playerVelocity.z})");
-    // Debug.DrawRay(Player.transform.position, predictedPos, Color.green, 1.0f);
+    private Vector3 _playerPrevPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,7 @@ public class PursuitBot : MonoBehaviour
         _playerPrevPosition = Player.transform.position;
     }
 
-    private void Pursuit()
+    private void Evade()
     {
         var playerDisplacement = Player.transform.position - _playerPrevPosition; // current displacement from previous frame to this frame
         var playerVelocity = playerDisplacement / Time.deltaTime;                 // current velocity vector
@@ -37,6 +36,7 @@ public class PursuitBot : MonoBehaviour
 
         Vector3 moveDir;
         var angle = Vector3.Angle(playerVelocity, transform.forward);
+        float distance = Vector3.Distance(Player.transform.position, transform.position);
 
         if (angle >= 90 || angle <= MaxSeekAngle) // player is moving in the opposite direction of the bot or the angle is just too small to look ahead, so we switch to a simple Seek behavior
         {
@@ -44,18 +44,21 @@ public class PursuitBot : MonoBehaviour
         }
         else // player is moving in the same direction of the bot and angle is big enough, so we look ahead...
         {
-            float distance = Vector3.Distance(Player.transform.position, transform.position);
             var predictedPos = Player.transform.position + playerVelocity * (distance * LookAhead / _agent.speed); // predicted position is based on the player's velocity
                                                                                                                    // and the bot's LookAhead attribute, speed and distance
+            distance = Vector3.Distance(predictedPos, transform.position);
             moveDir = predictedPos - transform.position;
         }
 
-        _agent.SetDestination(transform.position + moveDir); // move the bot in the direction of the predicted position
+        if (distance < MaxAllowedDistance)
+        {
+            _agent.SetDestination(transform.position - moveDir); // move the bot in the direction of the predicted position
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Pursuit();
+        Evade();
     }
 }
