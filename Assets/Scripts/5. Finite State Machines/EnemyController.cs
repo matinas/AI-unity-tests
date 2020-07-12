@@ -126,7 +126,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        OnSpinAroundCompleted.Invoke();
+        OnSpinAroundCompleted.Invoke(); // FIXME: this call works, but it's not correct, as it will be executed multiple times (once for each iteration)
         _spinCrt = null;
     }
 
@@ -150,7 +150,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        OnChasePlayerCompleted.Invoke();
+        OnChasePlayerCompleted.Invoke(); // FIXME: this call works, but it's not correct, as it will be executed multiple times (once for each iteration)
         _chaseCrt = null;
     }
 

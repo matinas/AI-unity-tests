@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace AITests.FSM.States
+namespace AITests.AMA.States
 {
     public enum States
     {
-        IDLE,
-        PATROL,
-        CHASE,
-        SLEEP
+        SEEK,
+        HIDE,
+        WANDER
     }
 
     public interface IState
