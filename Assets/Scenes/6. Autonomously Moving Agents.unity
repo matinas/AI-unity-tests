@@ -1116,6 +1116,7 @@ GameObject:
   - component: {fileID: 1634143884}
   - component: {fileID: 1634143885}
   - component: {fileID: 1634143886}
+  - component: {fileID: 1634143887}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -1273,7 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e1a9b1571f53e4d82b23a6a6dc507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 7
+  Range: 1.3
 --- !u!114 &1634143885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1295,13 +1296,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634143875}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23bf940b9b0a0ab4d8ea0227197ee72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 6961328225452540096}
   HideCloseness: 3
+--- !u!114 &1634143887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634143875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f5a9c20288a8c49a43ec8687c0e932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 6961328225452540096}
+  WanderRange: 6
 --- !u!1 &1664206714
 GameObject:
   m_ObjectHideFlags: 0
