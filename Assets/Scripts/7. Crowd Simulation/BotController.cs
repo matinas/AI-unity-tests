@@ -34,8 +34,8 @@ namespace AITests.Crowds
         // Start is called before the first frame update
         void Start()
         {
-            _agent = GetComponent<NavMeshAgent>();
             _agent.SetDestination(GoalIni.transform.position);
+            _agent = GetComponent<NavMeshAgent>();
 
             initSpeed = _agent.speed;
             isFleeing = false;
@@ -55,9 +55,10 @@ namespace AITests.Crowds
                     _agent.SetDestination(GoalIni.transform.position);
                 }
 
-                if (CheckDanger()) 
+                if (CheckDanger()) // if danger detected, broadcast the FleeAway message to every bot
                 {
-                    FleeAway();
+                    var botsGO = gameObject.transform.parent;
+                    botsGO.BroadcastMessage("FleeAway");
                 }
             }
         }
@@ -65,22 +66,25 @@ namespace AITests.Crowds
         private bool CheckDanger()
         {
             var dirToPlayer = Player.transform.position - transform.position;
-            bool playerInVisualRange = Vector3.Angle(transform.forward, dirToPlayer) < RangeAngle;
-            bool playerCloseEnough = Vector3.Distance(transform.position, Player.transform.position) < RangeDistance;
+
+            bool playerInVisualRange = Vector3.Angle(transform.forward, dirToPlayer) < RangeAngle;                      // is player within visible range?
+            bool playerCloseEnough = Vector3.Distance(transform.position, Player.transform.position) < RangeDistance;   // is player close enough?
 
             return playerInVisualRange && playerCloseEnough;
         }
 
         private void FleeAway()
         {
+            // to find the flee direction we need to calculate a vector that points in the opposite direction to the direction of movement
+            // and the angle between it and the opposite direction is a random angle within a specific range (either left or right)
             Quaternion fleeRot = Quaternion.Euler(0.0f, Mathf.Sign(Random.Range(-1,1)) * Random.Range(0.0f, MaxFleeAngle), 0.0f);
             Vector3 backwardDir = -_agent.transform.forward;
-            Vector3 fleeDirection = fleeRot * backwardDir;
+            Vector3 fleeDirection = fleeRot * backwardDir; // apply the rotation
 
             StartCoroutine(FleeCrt(fleeDirection.normalized));
         }
 
-        IEnumerator FleeCrt(Vector3 dir)
+        IEnumerator FleeCrt(Vector3 dir) // moves the agent in the 'dir' direction for 'FleeDuration' seconds
         {
             isFleeing = true;
             _agent.speed *= 3;
