@@ -16,7 +16,7 @@ public class FlockGroup : MonoBehaviour
     [Range(-7, 7)]
     public float MaxLimit;
 
-    [Range(0.1f, 0.5f)]
+    [Range(0.0f, 0.5f)]
     public float LimitAccuracy;
 
     [Header("Flock Group Settings")]
@@ -26,11 +26,23 @@ public class FlockGroup : MonoBehaviour
     [Range(0.1f, 5.0f)]
     public float MaxSpeed;
 
+    [Range(1.0f, 3.0f)]
+    public float RotationSpeed;
+
     [Range(1.0f, 10.0f)]
     public float NeighbourDistance;
 
     [Range(0.5f, 5.0f)]
     public float AvoidNeighbourDistance;
+
+    public bool RespectLimits;
+
+    public bool MoveTowardGoal;
+
+    public Transform GoalPosition;
+
+     [Range(0.5f, 3.0f)]
+    public float SpeedToGoal;
 
     private List<GameObject> _flockObjs = new List<GameObject>();
     private int FlockCount { get { return _flockObjs.Count; } }
@@ -61,7 +73,23 @@ public class FlockGroup : MonoBehaviour
         var newHeading = Vector3.zero;
         if (neighbourhood.Count() > 0)
         {
-            newHeading = (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);
+            if (MoveTowardGoal)
+            {
+                var flockAvgPos = FlockAveragePosition(neighbourhood);
+                Vector3 shiftedAvgPos = flockAvgPos;
+
+                if (Vector3.Distance(flockAvgPos, GoalPosition.position) > 1.0f) // shift position only if the flock group is not yet close enough to the goal position
+                {
+                    var avgPosToGoalDir = GoalPosition.position - flockAvgPos;
+                    shiftedAvgPos = flockAvgPos + avgPosToGoalDir.normalized * SpeedToGoal;
+                }
+
+                newHeading = (shiftedAvgPos - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);
+            }
+            else
+            {
+                newHeading = (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);
+            }
 
             // the rule "move towards the average group heading position" doesn't working that fine, and i think it makes sense
             // what happens is that all the objects in the flock end up being aligned to certain position

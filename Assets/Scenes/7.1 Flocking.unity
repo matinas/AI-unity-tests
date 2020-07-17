@@ -142,14 +142,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6289231880836860287, guid: dcebab972a81ad74e891021f69f6c14b, type: 3}
-  Count: 30
-  MinLimit: 0
+  Count: 50
+  MinLimit: -1
   MaxLimit: 5
   LimitAccuracy: 0
   MinSpeed: 2
-  MaxSpeed: 3.58
+  MaxSpeed: 2.93
+  RotationSpeed: 0
   NeighbourDistance: 7
   AvoidNeighbourDistance: 1.2
+  RespectLimits: 0
+  MoveTowardGoal: 0
+  GoalPosition: {fileID: 0}
+  SpeedToGoal: 0
 --- !u!4 &20028038
 Transform:
   m_ObjectHideFlags: 0
@@ -271,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &31081480
 Transform:
   m_ObjectHideFlags: 0
@@ -290,6 +295,36 @@ Transform:
   - {fileID: 29228314}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &90691416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 90691417}
+  m_Layer: 0
+  m_Name: GoalPostion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &90691417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90691416}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.63, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 749033826}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &262847573
 GameObject:
@@ -505,14 +540,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8737810609714376282, guid: 4fa2d8642509d5647b69e58e61741b67, type: 3}
-  Count: 15
-  MinLimit: -3
-  MaxLimit: 0
+  Count: 25
+  MinLimit: -5
+  MaxLimit: 2
   LimitAccuracy: 0
   MinSpeed: 1.5
   MaxSpeed: 2.12
+  RotationSpeed: 0
   NeighbourDistance: 5
   AvoidNeighbourDistance: 1
+  RespectLimits: 0
+  MoveTowardGoal: 0
+  GoalPosition: {fileID: 0}
+  SpeedToGoal: 0
 --- !u!4 &519103745
 Transform:
   m_ObjectHideFlags: 0
@@ -557,14 +597,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6289017656157089081, guid: 0bfe7b4f5b2e42c4e9ce8ae000775bb6, type: 3}
-  Count: 20
+  Count: 30
   MinLimit: -5
   MaxLimit: 5
-  LimitAccuracy: 0.229
+  LimitAccuracy: 0
   MinSpeed: 0.4
-  MaxSpeed: 2.2
+  MaxSpeed: 4.08
+  RotationSpeed: 1.3
   NeighbourDistance: 5
   AvoidNeighbourDistance: 1
+  RespectLimits: 0
+  MoveTowardGoal: 0
+  GoalPosition: {fileID: 90691417}
+  SpeedToGoal: 1
 --- !u!4 &749033826
 Transform:
   m_ObjectHideFlags: 0
@@ -575,7 +620,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 90691417}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

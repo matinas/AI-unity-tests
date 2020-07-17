@@ -20,7 +20,7 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (AboutToReachLimits())
+        if (FlockGroup.RespectLimits && AboutToReachLimits())
         {
             transform.rotation = Quaternion.LookRotation(-transform.forward);
         }
@@ -29,7 +29,7 @@ public class Flock : MonoBehaviour
             var newHeading = FlockGroup.ApplyFlockingRules(transform.gameObject);
             if (newHeading != Vector3.zero)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(newHeading), Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(newHeading), Time.deltaTime * FlockGroup.RotationSpeed);
             }
         }
 
