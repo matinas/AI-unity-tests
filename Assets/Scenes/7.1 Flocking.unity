@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &20028037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,12 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6289231880836860287, guid: dcebab972a81ad74e891021f69f6c14b, type: 3}
-  Count: 30
-  MinLimit: 0
+  Count: 50
+  MinLimit: -1
   MaxLimit: 5
   LimitAccuracy: 0
   MinSpeed: 2
-  MaxSpeed: 3.58
+  MaxSpeed: 2.93
   NeighbourDistance: 7
   AvoidNeighbourDistance: 1.2
 --- !u!4 &20028038
@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &31081480
 Transform:
   m_ObjectHideFlags: 0
@@ -491,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &519103744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,9 +505,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8737810609714376282, guid: 4fa2d8642509d5647b69e58e61741b67, type: 3}
-  Count: 15
-  MinLimit: -3
-  MaxLimit: 0
+  Count: 25
+  MinLimit: -5
+  MaxLimit: 2
   LimitAccuracy: 0
   MinSpeed: 1.5
   MaxSpeed: 2.12
@@ -557,12 +557,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6289017656157089081, guid: 0bfe7b4f5b2e42c4e9ce8ae000775bb6, type: 3}
-  Count: 20
+  Count: 30
   MinLimit: -5
   MaxLimit: 5
-  LimitAccuracy: 0.229
+  LimitAccuracy: 0
   MinSpeed: 0.4
-  MaxSpeed: 2.2
+  MaxSpeed: 4.08
   NeighbourDistance: 5
   AvoidNeighbourDistance: 1
 --- !u!4 &749033826
