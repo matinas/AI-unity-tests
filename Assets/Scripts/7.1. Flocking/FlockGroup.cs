@@ -100,6 +100,21 @@ public class FlockGroup : MonoBehaviour
         return newHeading;
     }
 
+    // we are not using this but we would want to take into account the global speed of the flock to set the speed of each flock (set the speed of
+    // each flock to this as part of the flocking rules application). right now even when an individual is part of a flock group it moves at its own
+    // speed randomly calculated at startup this means that when we have the MoveTowardGoal flag enabled some of the individuals will move slower than
+    // others towards the target
+    public float GetFlockGlobalSpeed(IEnumerable<GameObject> neighbourhood)
+    {
+        var gSpeed = 0.0f;
+        foreach (var neighbour in neighbourhood)
+        {
+            gSpeed += neighbour.GetComponent<Flock>().Speed;
+        }
+
+        return gSpeed / neighbourhood.Count();
+    }
+
     private Vector3 FlockAverageHeading(IEnumerable<GameObject> neighbourhood)
     {
         Vector3 avgHeading = Vector3.zero;

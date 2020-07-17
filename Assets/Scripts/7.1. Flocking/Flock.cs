@@ -4,17 +4,12 @@ public class Flock : MonoBehaviour
 {
     public FlockGroup FlockGroup { get; set; }
 
-    private Vector3 _currentDir;
-
-    private bool _isTurning = false;
-
-    private float _speed;
+    public float Speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        _currentDir = transform.forward;
-        _speed = Random.Range(FlockGroup.MinSpeed, FlockGroup.MaxSpeed);
+        Speed = Random.Range(FlockGroup.MinSpeed, FlockGroup.MaxSpeed);
     }
 
     // Update is called once per frame
@@ -33,7 +28,7 @@ public class Flock : MonoBehaviour
             }
         }
 
-        transform.Translate(0.0f, 0.0f, Time.deltaTime * _speed);
+        transform.Translate(0.0f, 0.0f, Time.deltaTime * Speed);
     }
 
     private bool AboutToReachLimits()
