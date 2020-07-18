@@ -4,48 +4,85 @@ using System.Linq;
 
 public class FlockGroup : MonoBehaviour
 {
+    [Header("General Settings")]
     [SerializeField]
     private Transform Prefab;
 
     [SerializeField]
+    [Tooltip("Amount of individuals on the flock group")]
     private int Count;
 
     [Range(-7, 7)]
+    [Tooltip("Min limit (x,y and z) of the container of the flock. Flock group individuals will be spawn inside this bounds and may flock restricted to them")]
     public float MinLimit;
 
     [Range(-7, 7)]
+    [Tooltip("Max limit (x, y and z) of the container of the flock. Flock group individuals will be spawn inside this bounds and may flock restricted to them")]
     public float MaxLimit;
 
     [Range(0.0f, 0.5f)]
+    [Tooltip("Specifies an error value to take into account to consider whether an individual has tresspassed the bound limits or not")]
     public float LimitAccuracy;
 
-    [Header("Flock Group Settings")]
+    [Header("Behavior Settings")]
     [Range(0.1f, 5.0f)]
+    [Tooltip("Min speed for individuals in the flock group")]
     public float MinSpeed;
 
     [Range(0.1f, 5.0f)]
+    [Tooltip("Max speed for individuals in the flock group")]
     public float MaxSpeed;
 
     [Range(1.0f, 3.0f)]
+    [Tooltip("Speed at which each individual rotates to follow the flock group calculated heading")]
     public float RotationSpeed;
 
     [Range(1.0f, 10.0f)]
+    [Tooltip("Distance to be considered a neighbour of a given individual. Flocking rules apply only to the neighbourhood")]
     public float NeighbourDistance;
 
     [Range(0.5f, 5.0f)]
+    [Tooltip("Distance at which the 'avoid neighbour' rule will be taken into account. The higher the value the more sparse the flock group")]
     public float AvoidNeighbourDistance;
 
+    [Range(10.0f, 50.0f)]
+    [Tooltip("Distance at which an individual that has dettached from the flock will be re-flocked (brought back to center)")]
+    public float ReflockDistance;
+
+    [Tooltip("Should individuals respect the defined limits?")]
     public bool RespectLimits;
 
+    [Tooltip("Should the flock group move towards a goal or flock around attached to one position?")]
     public bool MoveTowardGoal;
 
+    [Tooltip("If MoveTowardGoal enabled, this specifies the goal to move towards")]
     public Transform GoalPosition;
 
-     [Range(0.5f, 3.0f)]
+    [Range(0.5f, 3.0f)]
+    [Tooltip("If MoveTowardGoal enabled, this specifies the speed at which the flock will move towards the goal as a group")]
     public float SpeedToGoal;
 
+    [Header("Obstacle Avoidance")]
+    [SerializeField]
+    public List<Transform> Obstacles;
+
+    [Tooltip("Should the flock group avoid obstacles?")]
+    [SerializeField]
+    public bool AvoidObstacles;
+
+    [SerializeField]
+    [Range(1.0f, 5.0f)]
+    [Tooltip("Specifies how much anticipatedly an individual will start steering to avoid an obstable. The higher the value, the sooner it will start steering away")]
+    public float AvoidDistance;
+
+    [SerializeField]
+    [Range(90.0f, 180.0f)]
+    [Tooltip("Specifies the amount of avoidance for an individual once an obstacle is detected. The higher the value, the more the individual will steer away")]
+    public float AvoidFactor; // only used for the "naive/manual" approach on ObstacleAdjustment (not the "reflected direction / automatic" approach) 
+
     private List<GameObject> _flockObjs = new List<GameObject>();
-    private int FlockCount { get { return _flockObjs.Count; } }
+
+    public Vector3 AveragePosition { get { return FlockAveragePosition(_flockObjs); } }
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +125,7 @@ public class FlockGroup : MonoBehaviour
             }
             else
             {
-                newHeading = (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);
+                newHeading = (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);   
             }
 
             // the rule "move towards the average group heading position" doesn't working that fine, and i think it makes sense
