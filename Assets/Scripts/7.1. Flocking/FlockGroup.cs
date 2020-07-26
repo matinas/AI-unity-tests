@@ -37,11 +37,11 @@ public class FlockGroup : MonoBehaviour
     [Tooltip("Speed at which each individual rotates to follow the flock group calculated heading")]
     public float RotationSpeed;
 
-    [Range(1.0f, 10.0f)]
+    [Range(0.1f, 10.0f)]
     [Tooltip("Distance to be considered a neighbour of a given individual. Flocking rules apply only to the neighbourhood")]
     public float NeighbourDistance;
 
-    [Range(0.5f, 5.0f)]
+    [Range(0.1f, 5.0f)]
     [Tooltip("Distance at which the 'avoid neighbour' rule will be taken into account. The higher the value the more sparse the flock group")]
     public float AvoidNeighbourDistance;
 
@@ -128,7 +128,7 @@ public class FlockGroup : MonoBehaviour
                 newHeading = (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);   
             }
 
-            // the rule "move towards the average group heading position" doesn't working that fine, and i think it makes sense
+            // the rule "move towards the average group heading position" doesn't work that fine, and i think it makes sense
             // what happens is that all the objects in the flock end up being aligned to certain position
             // seems to be nice for certain scenarios but in a more general scenario it's better to have a bit more noise/randomness in the behavior of each individual
             // newHeading = FlockAverageHeading(neighbourhood) + (FlockAveragePosition(neighbourhood) - go.transform.position) + AvoidHeadingDirection(go, neighbourhood);

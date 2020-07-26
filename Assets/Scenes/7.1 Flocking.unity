@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6289017656157089081, guid: 0bfe7b4f5b2e42c4e9ce8ae000775bb6, type: 3}
-  Count: 30
+  Count: 100
   MinLimit: -5
   MaxLimit: 5
   LimitAccuracy: 0
@@ -633,7 +633,7 @@ MonoBehaviour:
   AvoidNeighbourDistance: 1
   ReflockDistance: 10
   RespectLimits: 0
-  MoveTowardGoal: 1
+  MoveTowardGoal: 0
   GoalPosition: {fileID: 90691417}
   SpeedToGoal: 1.92
   Obstacles:
@@ -1032,7 +1032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1555826026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1100,7 +1100,7 @@ Transform:
   m_GameObject: {fileID: 1555826025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 10.62048, z: 1}
+  m_LocalScale: {x: 1, y: 10.62048, z: 4.1377}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
