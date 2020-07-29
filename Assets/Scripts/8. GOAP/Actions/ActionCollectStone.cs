@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionCollectStone");
+
+            AddPrecondition(WorldStateAttribute.ToolEquipped, true);
+            AddEffect(WorldStateAttribute.ResourceCollected, true);
         }
 
         public override bool Run()
-        {
-            return CollectStone();
-        }
-
-        private bool CollectStone()
         {
             Debug.Log("Stone collected!");
 

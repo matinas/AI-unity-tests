@@ -9,20 +9,24 @@ PRECONDITIONS: ResourceCollected=true, InStoreFishRange=true
 EFFECT: ResourceStored=true
 
 Action #1: CollectFish
-PRECONDITIONS: ToolEquipped=true, InCollectFishRange=true
+PRECONDITIONS: ToolEquiped=true, InCollectFishRange=true
 EFFECT: ResourceCollected=true
 
 Action #2: CraftTool
-PRECONDITIONS: MaterialsAvailableForTool=true, InToolCraftingRange=true
-EFFECT: ToolAvailable=true
+PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true
+EFFECT: HasTool=true
 
-Action #3: EquipTool
-PRECONDITIONS: ToolAvailable=true, InToolCraftingRange=true
+Action #3: GetToolFromCenter
+PRECONDITIONS: ToolAvailableInCenter=true, InToolCenterRange=true
+EFFECT: HasTool=true
+
+Action #4: EquipTool
+PRECONDITIONS: HasTool=true, InToolCraftingRange=true
 EFFECT: ToolEquiped=true
 
-Action #4: WaitForMaterials
-PRECONDITIONS: MaterialsAvailableForTool=false, InWaitingMaterialsRange=true
-EFFECT: MaterialsAvailableForTool=true
+Action #5: WaitForMaterials
+PRECONDITIONS: MaterialsAvailable=false, InWaitingMaterialsRange=true
+EFFECT: MaterialsAvailable=true
 
 --- Miner
 
@@ -31,20 +35,24 @@ PRECONDITIONS: ResourceCollected=true, InStoreStoneRange=true
 EFFECT: ResourceStored=true
 
 Action #1: CollectStone
-PRECONDITIONS: ToolEquipped=true, InCollectStoneRange=true
+PRECONDITIONS: ToolEquiped=true, InCollectStoneRange=true
 EFFECT: ResourceCollected=true
 
 Action #2: CraftTool
-PRECONDITIONS: MaterialsAvailableForTool=true, InToolCraftingRange=true
-EFFECT: ToolAvailable=true
+PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true
+EFFECT: HasTool=true
 
-Action #3: EquipTool
-PRECONDITIONS: ToolAvailable=true, InToolCraftingRange=true
+Action #3: GetToolFromCenter
+PRECONDITIONS: ToolAvailableInCenter=true, InToolCenterRange=true
+EFFECT: HasTool=true
+
+Action #4: EquipTool
+PRECONDITIONS: ToolAvailableInCenter=true, InToolCraftingRange=true
 EFFECT: ToolEquiped=true
 
-Action #4: WaitForMaterials
-PRECONDITIONS: MaterialsAvailableForTool=false, InWaitingMaterialsRange=true
-EFFECT: MaterialsAvailableForTool=true
+Action #5: WaitForMaterials
+PRECONDITIONS: MaterialsAvailable=false, InWaitingMaterialsRange=true
+EFFECT: MaterialsAvailable=true
 
 --- Lumberjack
 
@@ -53,19 +61,23 @@ PRECONDITIONS: ResourceCollected=true, InStoreWoodRange=true
 EFFECT: ResourceStored=true
 
 Action #1: CollectWood
-PRECONDITIONS: ToolEquipped=true, InCollectWoodRange=true
+PRECONDITIONS: ToolEquiped=true, InCollectWoodRange=true
 EFFECT: ResourceCollected=true
 
 Action #2: CraftTool
-PRECONDITIONS: MaterialsAvailableForTool=true, InToolCraftingRange=true
-EFFECT: ToolAvailable=true
+PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true
+EFFECT: HasTool=true
 
-Action #3: EquipTool
-PRECONDITIONS: ToolAvailable=true, InToolCraftingRange=true
+Action #3: GetToolFromCenter
+PRECONDITIONS: ToolAvailableInCenter=true, InToolCenterRange=true
+EFFECT: HasTool=true
+
+Action #4: EquipTool
+PRECONDITIONS: ToolAvailableInCenter=true, InToolCraftingRange=true
 EFFECT: ToolEquiped=true
 
-Action #4: WaitForMaterials
-PRECONDITIONS: MaterialsAvailableForTool=false, InWaitingMaterialsRange=true
-EFFECT: MaterialsAvailableForTool=true
+Action #5: WaitForMaterials
+PRECONDITIONS: MaterialsAvailable=false, InWaitingMaterialsRange=true
+EFFECT: MaterialsAvailable=true
 
 

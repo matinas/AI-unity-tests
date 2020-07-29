@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using AITests.GOAP;
+using System;
 
 public class WorldManager : MonoBehaviour
 {
@@ -36,8 +37,10 @@ public class WorldManager : MonoBehaviour
         
     }
 
-    public void FillWorldState(ref Dictionary<WorldStateAttribute, object> worldState)
+    public Dictionary<WorldStateAttribute, object> GetWorldStateClone()
     {
-        // TODO: lopp through the global current world state and fill the gaps in the worldState passed as parameter
+        var worldStateClone = new Dictionary<WorldStateAttribute, object>(WorldState); // should be a clone of the current world state
+
+        return worldStateClone;
     }
 }

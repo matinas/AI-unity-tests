@@ -22,25 +22,21 @@ namespace AITests.GOAP
         private GOAPPlan _currentPlan;
 
         [SerializeField]
-        private GOAPGoal Goal;
+        private GOAPGoal _goal;
 
         // Start is called before the first frame update
         void Start()
         {
             _actions = gameObject.GetComponents<GOAPAction>().ToList();
 
-            CreateWorldStateForAgent(out _worldState);
-            WorldManager.Instance.FillWorldState(ref _worldState);
-        }
-
-        private void CreateWorldStateForAgent(out Dictionary<WorldStateAttribute, object> worldState)
-        {
-            worldState = new Dictionary<WorldStateAttribute, object>();
-
+            // disable all action behaviors as each one will be activated individually as needed when executing the plan
             foreach (var action in _actions)
             {
-                // TODO: add the attributes from all the actions to the local world state maintained by this agent
+                action.enabled = false;
             }
+
+            _worldState = WorldManager.Instance.GetWorldStateClone(); // fill the world with the complete state
+                                                                      // the planner then will use just the relevant states for the set of actions of this agent
         }
 
         // Update is called once per frame
@@ -48,10 +44,14 @@ namespace AITests.GOAP
         {
             if (_currentPlan == null || _currentPlan.Status == GOAPPlan.PlanStatus.Invalid || _currentPlan.Status == GOAPPlan.PlanStatus.Completed)
             {
-                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, _worldState); // get a new plan
-            }
+                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, _worldState, _goal); // get a new plan
+                Debug.Log("A new plan had just been computed");
 
-            _currentPlan.ExecuteOrUpdate(); // execute the plan
+                if (_currentPlan.Status == GOAPPlan.PlanStatus.Valid)
+                {
+                    _currentPlan.Execute(); // execute the current plan
+                }
+            }
         }
     }
 }

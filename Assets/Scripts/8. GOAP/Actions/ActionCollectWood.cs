@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionCollectWood");
+
+            AddPrecondition(WorldStateAttribute.ToolEquipped, true);
+            AddEffect(WorldStateAttribute.ResourceCollected, true);
         }
 
         public override bool Run()
-        {
-            return CollectWood();
-        }
-
-        private bool CollectWood()
         {
             Debug.Log("Wood collected!");
 

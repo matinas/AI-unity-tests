@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionStoreStone");
+
+            AddPrecondition(WorldStateAttribute.ResourceCollected, true);
+            AddEffect(WorldStateAttribute.ResourceStored, true);
         }
 
         public override bool Run()
-        {
-            return StoreStone();
-        }
-
-        private bool StoreStone()
         {
             Debug.Log("Stone stored!");
 

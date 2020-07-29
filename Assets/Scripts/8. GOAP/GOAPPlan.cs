@@ -30,17 +30,17 @@ public class GOAPPlan
     {
         Actions = actions;
         Status = PlanStatus.Valid;
-
-        _currentAction = Actions[_currentActionIdx];
-        _currentAction.OnActionCompleted += HandleActionCompleted;
-
-        DisableAllButCurrent();
     }
 
-    public void ExecuteOrUpdate()
+    public void Execute()
     {
         if (Status == PlanStatus.Valid)
         {
+            _currentAction = Actions[_currentActionIdx];
+            _currentAction.OnActionCompleted += HandleActionCompleted;
+
+            DisableAllButCurrent();
+
             Status = PlanStatus.InProgress;
         }
     }

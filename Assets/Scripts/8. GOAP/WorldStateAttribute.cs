@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AITests.GOAP
 {
@@ -6,14 +7,11 @@ namespace AITests.GOAP
     public enum WorldStateAttribute
     {
         ToolEquipped,
-        MaterialsAvailableForTool,
-        ToolAvailable,
+        MaterialsAvailable,
+        ToolAvailableInCenter,
+        HasTool,
         ResourceCollected,
-        InCollectFishRange,
-        InCollectWoodRange,
-        InCollectStoneRange,
-        InToolCraftingRange,
-        InWaitingMaterialsRange
+        ResourceStored,
     }
 }
 

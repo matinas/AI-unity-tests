@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AITests.GOAP.Actions
 {
@@ -7,14 +8,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionStoreFish");
+
+            AddPrecondition(WorldStateAttribute.ResourceCollected, true);
+            AddEffect(WorldStateAttribute.ResourceStored, true);
         }
 
         public override bool Run()
-        {
-            return StoreFish();
-        }
-
-        private bool StoreFish()
         {
             Debug.Log("Fish stored!");
 

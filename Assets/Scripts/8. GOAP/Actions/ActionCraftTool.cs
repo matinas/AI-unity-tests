@@ -7,14 +7,13 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionCraftTool");
+
+            AddPrecondition(WorldStateAttribute.MaterialsAvailable, true);
+            AddPrecondition(WorldStateAttribute.HasTool, false);
+            AddEffect(WorldStateAttribute.HasTool, true);
         }
 
         public override bool Run()
-        {
-            return CraftTool();
-        }
-
-        private bool CraftTool()
         {
             Debug.Log("Tool crafted!");
 

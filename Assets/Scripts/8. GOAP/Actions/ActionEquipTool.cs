@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionEquipTool");
+
+            AddPrecondition(WorldStateAttribute.HasTool, true);
+            AddEffect(WorldStateAttribute.ToolEquipped, true);
         }
 
         public override bool Run()
-        {
-            return EquipTool();
-        }
-
-        private bool EquipTool()
         {
             Debug.Log("Tool equipped!");
 

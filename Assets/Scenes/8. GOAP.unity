@@ -2095,6 +2095,7 @@ GameObject:
   - component: {fileID: 505246688}
   - component: {fileID: 505246690}
   - component: {fileID: 505246692}
+  - component: {fileID: 505246694}
   - component: {fileID: 505246689}
   - component: {fileID: 505246687}
   - component: {fileID: 505246693}
@@ -2104,7 +2105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &505246683
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2192,6 +2193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 0
   Target: {fileID: 0}
+  Cost: 0
 --- !u!114 &505246688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2206,6 +2208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 0
 --- !u!114 &505246689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 8
 --- !u!114 &505246690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,6 +2238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1996883899}
+  Cost: 0
 --- !u!114 &505246691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,6 +2265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 32514013}
+  Cost: 0
 --- !u!195 &505246693
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2282,6 +2288,21 @@ NavMeshAgent:
   m_BaseOffset: 0.99999994
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &505246694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505246682}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac022cf737312e47b1fe066153b5263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeRequired: 1
+  Target: {fileID: 1446283265}
+  Cost: 4
 --- !u!1001 &513605941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5109,6 +5130,7 @@ GameObject:
   - component: {fileID: 1311444394}
   - component: {fileID: 1311444396}
   - component: {fileID: 1311444398}
+  - component: {fileID: 1311444400}
   - component: {fileID: 1311444395}
   - component: {fileID: 1311444393}
   - component: {fileID: 1311444399}
@@ -5199,13 +5221,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311444388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d2f892180cb8d94d9059c98b5e7bb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RangeRequired: 0
   Target: {fileID: 0}
+  Cost: 3
 --- !u!114 &1311444394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5213,13 +5236,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311444388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c68c8cb082d6f24bbae2c870232890f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 1
 --- !u!114 &1311444395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5227,13 +5251,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311444388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b13f11538b10c44faba82c0d33618f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 8
 --- !u!114 &1311444396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5241,13 +5266,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311444388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8cb6093faebec7459c490547544e947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 624057967}
+  Cost: 15
 --- !u!114 &1311444397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5267,13 +5293,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311444388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 632c021f6540e3547ae36d07e097f0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 32514013}
+  Cost: 5
 --- !u!195 &1311444399
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5296,6 +5323,21 @@ NavMeshAgent:
   m_BaseOffset: 0.99999994
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1311444400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311444388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac022cf737312e47b1fe066153b5263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeRequired: 1
+  Target: {fileID: 1446283265}
+  Cost: 4
 --- !u!1001 &1339889211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8349,6 +8391,7 @@ GameObject:
   - component: {fileID: 2144830517}
   - component: {fileID: 2144830519}
   - component: {fileID: 2144830521}
+  - component: {fileID: 2144830523}
   - component: {fileID: 2144830518}
   - component: {fileID: 2144830516}
   - component: {fileID: 2144830522}
@@ -8358,7 +8401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &2144830512
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8446,6 +8489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 0
   Target: {fileID: 0}
+  Cost: 0
 --- !u!114 &2144830517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8460,6 +8504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 0
 --- !u!114 &2144830518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8474,6 +8519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1446283265}
+  Cost: 8
 --- !u!114 &2144830519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8488,6 +8534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 1480917213}
+  Cost: 0
 --- !u!114 &2144830520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8514,6 +8561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RangeRequired: 1
   Target: {fileID: 32514013}
+  Cost: 0
 --- !u!195 &2144830522
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8536,3 +8584,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2144830523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144830511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac022cf737312e47b1fe066153b5263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeRequired: 1
+  Target: {fileID: 1446283265}
+  Cost: 4

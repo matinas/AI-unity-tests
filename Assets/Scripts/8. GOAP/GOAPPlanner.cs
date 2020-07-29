@@ -20,7 +20,7 @@ namespace AITests.GOAP
             }
         }
 
-        public GOAPPlan ComputePlan(List<GOAPAction> actions, Dictionary<WorldStateAttribute, object> worldState)
+        public GOAPPlan ComputePlan(List<GOAPAction> actions, Dictionary<WorldStateAttribute, object> worldState, GOAPGoal goal)
         {
             // FIXME: just for testing, always returns the first three actions
             var acs = actions.Take(3).ToList();

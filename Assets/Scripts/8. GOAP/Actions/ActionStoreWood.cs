@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionStoreWood");
+
+            AddPrecondition(WorldStateAttribute.ResourceCollected, true);
+            AddEffect(WorldStateAttribute.ResourceStored, true);
         }
 
         public override bool Run()
-        {
-            return StoreWood();
-        }
-
-        private bool StoreWood()
         {
             Debug.Log("Wood stored!");
 

@@ -7,14 +7,12 @@ namespace AITests.GOAP.Actions
         public override void Init()
         {
             Debug.Log("Init ActionWaitForMaterials");
+
+            AddPrecondition(WorldStateAttribute.MaterialsAvailable, false);
+            AddEffect(WorldStateAttribute.MaterialsAvailable, true);
         }
 
         public override bool Run()
-        {
-            return WaitForMaterials();
-        }
-
-        private bool WaitForMaterials()
         {
             Debug.Log("Waited for material!");
 
