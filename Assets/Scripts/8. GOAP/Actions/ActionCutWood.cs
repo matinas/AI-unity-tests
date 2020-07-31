@@ -2,19 +2,19 @@
 
 namespace AITests.GOAP.Actions
 {
-    public class ActionCollectStone : GOAPAction
+    public class ActionCutWood : GOAPAction
     {
         public override void Init()
         {
-            Debug.Log("Init ActionCollectStone");
+            Debug.Log("Init ActionCutWood");
 
             AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            AddEffect(WorldStateAttribute.ResourceCollected, true);
+            AddEffect(WorldStateAttribute.WoodCollected, true);
         }
 
         public override bool Run()
         {
-            Debug.Log("Stone collected!");
+            Debug.Log("Wood collected!");
 
             return true;
         }

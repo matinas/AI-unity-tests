@@ -36,6 +36,13 @@ namespace AITests.GOAP.Actions
             {
                 _agent.SetDestination(Target.position);
             }
+            else if (!RangeRequired)
+            {
+                if (Run())
+                {
+                    OnActionCompleted.Invoke();
+                }
+            }
 
             if (_agent.hasPath && _agent.remainingDistance < 0.5f) // if we are already in range, we just run the action update loop
             {

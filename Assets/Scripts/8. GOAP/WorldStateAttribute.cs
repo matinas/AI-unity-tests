@@ -7,11 +7,15 @@ namespace AITests.GOAP
     public enum WorldStateAttribute
     {
         ToolEquipped,
-        MaterialsAvailable,
+        MaterialsAvailableForTool,
         ToolAvailableInCenter,
         HasTool,
-        ResourceCollected,
-        ResourceStored,
+        StoneCollected,
+        FishCollected,
+        WoodCollected,
+        StoneStored,
+        FishStored,
+        WoodStored,
     }
 }
 

@@ -2,14 +2,14 @@
 
 namespace AITests.GOAP.Actions
 {
-    public class ActionCollectFish : GOAPAction
+    public class ActionCatchFish : GOAPAction
     {
         public override void Init()
         {
-            Debug.Log("Init ActionCollectFish");
+            Debug.Log("Init ActionCatchFish");
 
             AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            AddEffect(WorldStateAttribute.ResourceCollected, true);
+            AddEffect(WorldStateAttribute.FishCollected, true);
         }
 
         public override bool Run()

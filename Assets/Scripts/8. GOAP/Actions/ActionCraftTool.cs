@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AITests.GOAP.Actions
 {
@@ -8,7 +9,7 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionCraftTool");
 
-            AddPrecondition(WorldStateAttribute.MaterialsAvailable, true);
+            AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, CheckMaterialsAvailable());
             AddPrecondition(WorldStateAttribute.HasTool, false);
             AddEffect(WorldStateAttribute.HasTool, true);
         }
@@ -18,6 +19,11 @@ namespace AITests.GOAP.Actions
             Debug.Log("Tool crafted!");
 
             return true;
+        }
+
+        private bool CheckMaterialsAvailable()
+        {
+            throw new NotImplementedException();
         }
     }
 }

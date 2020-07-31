@@ -8,8 +8,9 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionWaitForMaterials");
 
-            AddPrecondition(WorldStateAttribute.MaterialsAvailable, false);
-            AddEffect(WorldStateAttribute.MaterialsAvailable, true);
+            AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, false);
+            AddPrecondition(WorldStateAttribute.HasTool, false);
+            AddEffect(WorldStateAttribute.MaterialsAvailableForTool, true);
         }
 
         public override bool Run()
