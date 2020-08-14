@@ -2320,7 +2320,7 @@ MonoBehaviour:
   RangeRequired: 0
   Target: {fileID: 0}
   Cost: 0
-  Duration: 0
+  Duration: 1
 --- !u!114 &505246688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,7 +2467,7 @@ MonoBehaviour:
   RangeRequired: 1
   Target: {fileID: 503469055}
   Cost: 0
-  Duration: 0
+  Duration: 1
 --- !u!1001 &513605941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3657,9 +3657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bd4bc09e858574b9d6ebd99b9ec453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoneAmount_Debug: 0
+  StoneAmount_Debug: 5
   FishAmount_Debug: 0
-  WoodAmount_Debug: 0
+  WoodAmount_Debug: 5
   ToolAmount_Debug: 20
 --- !u!1001 &746332836
 PrefabInstance:
