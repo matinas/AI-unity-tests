@@ -4,13 +4,13 @@ EFFECT:
 
 --- Fisherman
 
-Action #0: StoreFish
-PRECONDITIONS: ResourceCollected=true, InStoreFishRange=true
-EFFECT: ResourceStored=true
+Action #0: GetFish
+PRECONDITIONS: FishCollected=true, InStoreFishRange=true
+EFFECT: FishStored=true
 
-Action #1: CollectFish
+Action #1: CatchFish
 PRECONDITIONS: ToolEquiped=true, InCollectFishRange=true
-EFFECT: ResourceCollected=true
+EFFECT: FishCollected=true
 
 Action #2: CraftTool
 PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true
@@ -30,13 +30,13 @@ EFFECT: MaterialsAvailable=true
 
 --- Miner
 
-Action #0: StoreStone
-PRECONDITIONS: ResourceCollected=true, InStoreStoneRange=true
-EFFECT: ResourceStored=true
+Action #0: GetStone
+PRECONDITIONS: StoneCollected=true, InStoreStoneRange=true
+EFFECT: StoneStored=true
 
-Action #1: CollectStone
+Action #1: MineStone
 PRECONDITIONS: ToolEquiped=true, InCollectStoneRange=true
-EFFECT: ResourceCollected=true
+EFFECT: StoneCollected=true
 
 Action #2: CraftTool
 PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true
@@ -56,13 +56,13 @@ EFFECT: MaterialsAvailable=true
 
 --- Lumberjack
 
-Action #0: StoreWood
-PRECONDITIONS: ResourceCollected=true, InStoreWoodRange=true
-EFFECT: ResourceStored=true
+Action #0: GetWood
+PRECONDITIONS: WoodCollected=true, InStoreWoodRange=true
+EFFECT: WoodStored=true
 
-Action #1: CollectWood
+Action #1: CutWood
 PRECONDITIONS: ToolEquiped=true, InCollectWoodRange=true
-EFFECT: ResourceCollected=true
+EFFECT: WoodCollected=true
 
 Action #2: CraftTool
 PRECONDITIONS: MaterialsAvailable=true, HasTool=false, InToolCraftingRange=true

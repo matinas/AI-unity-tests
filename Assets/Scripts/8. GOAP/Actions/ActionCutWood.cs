@@ -8,15 +8,20 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionCutWood");
 
-            AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            AddEffect(WorldStateAttribute.WoodCollected, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.ToolEquipped, true);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.WoodCollected, true);    
+            }
         }
 
         public override bool Run()
         {
-            Debug.Log("Wood collected!");
-
-            return true;
+            return base.Run();
         }
     }
 }

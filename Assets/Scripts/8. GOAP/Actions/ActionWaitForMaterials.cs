@@ -8,16 +8,21 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionWaitForMaterials");
 
-            AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, false);
-            AddPrecondition(WorldStateAttribute.HasTool, false);
-            AddEffect(WorldStateAttribute.MaterialsAvailableForTool, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, false);
+                AddPrecondition(WorldStateAttribute.HasTool, false);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.MaterialsAvailableForTool, true); 
+            }
         }
 
         public override bool Run()
         {
-            Debug.Log("Waited for material!");
-
-            return true;
+            return base.Run();
         }
     }
 }

@@ -6,8 +6,9 @@ namespace AITests.GOAP.Actions
     public interface IGOAPAction
     {
         event Action OnActionCompleted;
+        event Action OnActionAborted;
 
-        Dictionary<WorldStateAttribute, object> Preconditions { get; set; }
-        Dictionary<WorldStateAttribute, object> Effect { get; set; }
+        WorldState Preconditions { get; set; }
+        WorldState Effects { get; set; }
     }
 }

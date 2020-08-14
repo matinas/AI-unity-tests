@@ -1,22 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AITests.GOAP.Actions
 {
     public class ActionGetStone : GOAPAction
     {
+        public event Action OnStoneCollected;
+
         public override void Init()
         {
             Debug.Log("Init ActionGetStone");
 
-            AddPrecondition(WorldStateAttribute.StoneCollected, true);
-            AddEffect(WorldStateAttribute.StoneStored, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.StoneCollected, true);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.StoneStored, true);   
+            }
         }
 
         public override bool Run()
         {
-            Debug.Log("Got stone!");
+            if (base.Run())
+            {
+                StorageManager.Instance.RegisterStone(10);
+                return true;
+            }
 
-            return true;
+            return false;
         }
     }
 }

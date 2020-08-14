@@ -6,23 +6,16 @@ using System;
 
 namespace AITests.GOAP
 {
-    [Serializable]
-    public struct GOAPGoal
-    {
-        WorldStateAttribute WorldAttr;
-        object Value;
-    }
-
     public class GOAPAgent : MonoBehaviour
     {
         private List<GOAPAction> _actions;
 
-        private Dictionary<WorldStateAttribute, object> _worldState;
+        private WorldState _localState;
 
         private GOAPPlan _currentPlan;
 
         [SerializeField]
-        private GOAPGoal _goal;
+        public WorldStatePair[] Goal;
 
         // Start is called before the first frame update
         void Start()
@@ -35,17 +28,27 @@ namespace AITests.GOAP
                 action.enabled = false;
             }
 
-            _worldState = WorldManager.Instance.GetWorldStateClone(); // fill the world with the complete state
-                                                                      // the planner then will use just the relevant states for the set of actions of this agent
+            _localState = new WorldState();
+            _localState.AddState(WorldStateAttribute.ToolEquipped, false);
+            _localState.AddState(WorldStateAttribute.HasTool, false);
+            _localState.AddState(WorldStateAttribute.StoneCollected, false);
+            _localState.AddState(WorldStateAttribute.FishCollected, false);
+            _localState.AddState(WorldStateAttribute.WoodCollected, false);
+            _localState.AddState(WorldStateAttribute.StoneStored, false);
+            _localState.AddState(WorldStateAttribute.FishStored, false);
+            _localState.AddState(WorldStateAttribute.WoodStored, false);
+            _localState.AddState(WorldStateAttribute.ToolCrafted, false);
         }
 
-        // Update is called once per frame
         void Update()
         {
-            if (_currentPlan == null || _currentPlan.Status == GOAPPlan.PlanStatus.Invalid || _currentPlan.Status == GOAPPlan.PlanStatus.Completed)
+            if (_currentPlan == null || _currentPlan.Status == GOAPPlan.PlanStatus.Invalid ||
+                                        _currentPlan.Status == GOAPPlan.PlanStatus.Completed ||
+                                        _currentPlan.Status == GOAPPlan.PlanStatus.Aborted)
             {
-                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, _worldState, _goal); // get a new plan
-                Debug.Log("A new plan had just been computed");
+                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, Goal[0], _localState, WorldManager.Instance.GlobalState); // get a new plan
+                
+                // Debug.Log("A new plan has just been computed");
 
                 if (_currentPlan.Status == GOAPPlan.PlanStatus.Valid)
                 {

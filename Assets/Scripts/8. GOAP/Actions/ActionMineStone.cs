@@ -8,15 +8,20 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionMineStone");
 
-            AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            AddEffect(WorldStateAttribute.StoneCollected, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.ToolEquipped, true);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.StoneCollected, true);
+            }
         }
 
         public override bool Run()
         {
-            Debug.Log("Stone collected!");
-
-            return true;
+            return base.Run();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace AITests.GOAP.Actions
@@ -9,9 +10,16 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionGetToolFromCenter");
 
-            AddPrecondition(WorldStateAttribute.ToolAvailableInCenter, CheckToolAvailable());
-            AddPrecondition(WorldStateAttribute.HasTool, false);
-            AddEffect(WorldStateAttribute.HasTool, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.ToolAvailableInCenter, (Func<bool>) CheckToolAvailable);
+                AddPrecondition(WorldStateAttribute.HasTool, false);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.HasTool, true);  
+            }
 
             // WE CAN USE THIS TO CHECK WHETHER A PRECONDITION IS PROCEDURAL OR NOT...
             // if (value.GetType().IsPrimitive) // primitive type, commonly a bool for now
@@ -23,16 +31,18 @@ namespace AITests.GOAP.Actions
 
         public override bool Run()
         {
-            Debug.Log("Got tool!");
+            if (base.Run())
+            {
+                StorageManager.Instance.GetTool(1);
+                return true;
+            }
 
-            return true;
+            return false;
         }
 
         private bool CheckToolAvailable()
         {
-            // TODO: query the WorldManager to check if there's a tool available
-
-            throw new NotImplementedException();
+            return StorageManager.Instance.ToolAmount > 0;
         }
     }
 }

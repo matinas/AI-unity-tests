@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using AITests.GOAP;
-using System;
 
 public class WorldManager : MonoBehaviour
 {
@@ -11,14 +9,13 @@ public class WorldManager : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
-                Debug.Log("Please make sure that the WorldManager is added to the scene");
+            if (_instance == null) Debug.Log("Please make sure that the WorldManager is added to the scene");
 
             return _instance;
         }
     }
 
-    public Dictionary<WorldStateAttribute, object> WorldState { get; private set; }
+    public WorldState GlobalState { get; private set; }
 
     void Awake()
     {
@@ -28,19 +25,14 @@ public class WorldManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GlobalState = new WorldState();
+        GlobalState.AddState(WorldStateAttribute.MaterialsAvailableForTool, false);
+        GlobalState.AddState(WorldStateAttribute.ToolAvailableInCenter, false);
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public Dictionary<WorldStateAttribute, object> GetWorldStateClone()
-    {
-        var worldStateClone = new Dictionary<WorldStateAttribute, object>(WorldState); // should be a clone of the current world state
-
-        return worldStateClone;
     }
 }

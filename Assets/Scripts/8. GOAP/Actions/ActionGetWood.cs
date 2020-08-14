@@ -8,15 +8,26 @@ namespace AITests.GOAP.Actions
         {
             Debug.Log("Init ActionGetWood");
 
-            AddPrecondition(WorldStateAttribute.WoodCollected, true);
-            AddEffect(WorldStateAttribute.WoodStored, true);
+            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
+            {
+                AddPrecondition(WorldStateAttribute.WoodCollected, true);
+            }
+            
+            if (Effects == null) // if there are no effects from the inspector, fill them manually
+            {
+                AddEffect(WorldStateAttribute.WoodStored, true);   
+            }
         }
 
         public override bool Run()
         {
-            Debug.Log("Got wood!");
+            if (base.Run())
+            {
+                StorageManager.Instance.RegisterWood(10);
+                return true;
+            }
 
-            return true;
+            return false;
         }
     }
 }
