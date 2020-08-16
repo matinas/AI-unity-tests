@@ -4,19 +4,18 @@ namespace AITests.GOAP.Actions
 {
     public class ActionMineStone : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionMineStone");
+            Debug.Log("Init ActionMineStone preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.StoneCollected, true);
-            }
+            Preconditions.AddState(WorldStateAttribute.ToolEquipped, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionMineStone effects");
+
+            Effects.AddState(WorldStateAttribute.StoneCollected, true);
         }
 
         public override bool Run()

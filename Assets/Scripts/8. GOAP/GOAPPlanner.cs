@@ -3,6 +3,7 @@ using AITests.GOAP.Actions;
 using System.Linq;
 using System;
 using UnityEngine;
+using System.Collections;
 
 namespace AITests.GOAP
 {
@@ -10,49 +11,52 @@ namespace AITests.GOAP
     {
         public class PlannerState
         {
-            private WorldState currentState;
-            private WorldState desiredState;
+            public WorldState CurrentState { get; set; }
+            public WorldState DesiredState { get; set; }
 
-            public PlannerState()
+            public List<GOAPAction> AvailableActions { get; private set; }
+
+            public PlannerState(List<GOAPAction> actions, WorldState state)
             {
-                currentState = new WorldState();
-                desiredState = new WorldState();
+                CurrentState = new WorldState(state);
+                DesiredState = new WorldState();
+
+                AvailableActions = actions.ToList();
             }
 
-            public void AddPlanState(WorldStateAttribute attr, object currentValue, object desiredValue)
+            public void AddDesiredState(WorldStateAttribute attr, object desiredValue)
             {
-                currentState.AddState(attr, currentValue);
-                desiredState.AddState(attr, desiredValue);
+                DesiredState.AddOrUpdateState(attr, WorldState.NormalizeValue(Convert.ToInt32(desiredValue)));
             }
 
-            public void UpdateValue(WorldStateAttribute attr, object newValue)
+            public void UpdateCurrentState(WorldStateAttribute attr, object newValue)
             {
-                currentState.UpdateState(attr, newValue);
+                CurrentState.UpdateState(attr, newValue);
             }
 
-            public bool IsStateFulfilled(WorldStateAttribute attr)
+            public WorldStateKeyPair GetFirstNotFulfilled()
             {
-                if ((currentState.GetStateValue(attr) == null) || (desiredState.GetStateValue(attr) == null)) return false;
+                foreach (var state in DesiredState.States)
+                {
+                    if (!IsStateFulfilled(state.Key))
+                    {
+                        return new WorldStateKeyPair(state.Key, Convert.ToInt32(DesiredState.States[state.Key]));
+                    }
+                }
 
-                return currentState.CheckState(attr, desiredState.GetStateValue(attr));
+                return new WorldStateKeyPair();
             }
 
             public bool AllStatesFulfilled()
             {
-                return currentState.States.All(x => IsStateFulfilled(x.Key));
+                return DesiredState.States.All(x => IsStateFulfilled(x.Key));
             }
 
-            public KeyValuePair<WorldStateAttribute, int> GetFirstNotFulfilled()
+            public bool IsStateFulfilled(WorldStateAttribute attr)
             {
-                foreach (var current in currentState.States)
-                {
-                    if (!IsStateFulfilled(current.Key))
-                    {
-                        return new KeyValuePair<WorldStateAttribute, int>(current.Key, Convert.ToInt32(desiredState.States[current.Key]));
-                    }
-                }
+                if ((CurrentState.GetStateValue(attr) == null) || (DesiredState.GetStateValue(attr) == null)) return false;
 
-                return new KeyValuePair<WorldStateAttribute, int>();
+                return CurrentState.CheckStateValue(attr, DesiredState.GetStateValue(attr));
             }
         }
 
@@ -69,37 +73,47 @@ namespace AITests.GOAP
             }
         }
 
-        public GOAPPlan ComputePlan(List<GOAPAction> actions, WorldStatePair goal, WorldState localState, WorldState worldState)
+        public GOAPPlan ComputePlan(List<GOAPAction> actions, WorldStateKeyPair goal, WorldState localState, WorldState worldState)
         {
+            List<GOAPAction> planActions = new List<GOAPAction>();
+            Queue<PlannerState> statesStack = new Queue<PlannerState>();
+
             WorldState globalState = localState + worldState;
-            PlannerState plannerState = new PlannerState();
-            plannerState.AddPlanState(goal.Attr, Convert.ToInt32(globalState.GetStateValue(goal.Attr)), Convert.ToInt32(goal.Value));
 
-            List<GOAPAction> actionList = new List<GOAPAction>();
-            bool end = false;
-            while (!plannerState.AllStatesFulfilled() && !end)
+            PlannerState plannerState = new PlannerState(actions, globalState);
+            plannerState.AddDesiredState(goal.Attr, goal.Value);
+            
+            statesStack.Enqueue(plannerState); // queue the current planner state
+
+            while (statesStack.Count > 0)
             {
-                var toFulfill = plannerState.GetFirstNotFulfilled();
-                var matchingActions = actions.Where(x => x.Match(toFulfill));
+                var currPlannerState = statesStack.Dequeue();
+                var availableActions = currPlannerState.AvailableActions;
 
-                foreach (var action in matchingActions)
+                Debug.Log($"Stack now has {statesStack.Count} planner states");
+
+                while (!currPlannerState.AllStatesFulfilled())
                 {
-                    plannerState.UpdateValue(toFulfill.Key, toFulfill.Value);
-                    actionList.Add(action);
+                    var toFulfill = plannerState.GetFirstNotFulfilled();
+                    var matchingActions = availableActions.Where(x => x.Match(toFulfill)).ToList();
 
-                    var notMetReqs = action.GetNotMetRequirements(localState);
-                    foreach (var notMetReq in notMetReqs)
+                    foreach (var action in matchingActions)
                     {
-                        plannerState.AddPlanState(notMetReq.Key, localState.GetStateValue(notMetReq.Key), notMetReq.Value);
+                        var notMetPrecs = action.GetNotMetPreconditions(currPlannerState.CurrentState);
+                        foreach (var prec in notMetPrecs)
+                        {
+                            plannerState.AddDesiredState(prec.Attr, prec.Value);
+                        }
+
+                        plannerState.UpdateCurrentState(toFulfill.Attr, toFulfill.Value);
+                        planActions.Add(action);
+                        availableActions.Remove(action);
                     }
                 }
             }
 
-            actionList.Reverse();
-            return new GOAPPlan(actionList);
-
-            // var acs = actions.Take(4).ToList(); // just for testing purposes, always returns the first four actions
-            // return new GOAPPlan(acs);
+            planActions.Reverse();
+            return new GOAPPlan(planActions);
         }
     }
 }

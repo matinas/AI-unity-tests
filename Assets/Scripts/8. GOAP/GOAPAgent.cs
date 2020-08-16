@@ -2,20 +2,21 @@
 using UnityEngine;
 using System.Linq;
 using AITests.GOAP.Actions;
-using System;
 
 namespace AITests.GOAP
 {
     public class GOAPAgent : MonoBehaviour
     {
+        [SerializeField]
+        private WorldStatePair[] Goals;
+
+        private List<WorldStateKeyPair> _goals = new List<WorldStateKeyPair>();
+
         private List<GOAPAction> _actions;
 
         private WorldState _localState;
 
         private GOAPPlan _currentPlan;
-
-        [SerializeField]
-        public WorldStatePair[] Goal;
 
         // Start is called before the first frame update
         void Start()
@@ -26,6 +27,12 @@ namespace AITests.GOAP
             foreach (var action in _actions)
             {
                 action.enabled = false;
+            }
+
+            // fill the goals
+            foreach (var goal in Goals)
+            {
+                _goals.Add(new WorldStateKeyPair(goal.Attr, goal.Value));
             }
 
             _localState = new WorldState();
@@ -46,9 +53,9 @@ namespace AITests.GOAP
                                         _currentPlan.Status == GOAPPlan.PlanStatus.Completed ||
                                         _currentPlan.Status == GOAPPlan.PlanStatus.Aborted)
             {
-                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, Goal[0], _localState, WorldManager.Instance.GlobalState); // get a new plan
+                _currentPlan = GOAPPlanner.Instance.ComputePlan(_actions, _goals.ElementAt(0), _localState, WorldManager.Instance.GlobalState); // get a new plan
                 
-                // Debug.Log("A new plan has just been computed");
+                Debug.Log("A new plan has just been computed");
 
                 if (_currentPlan.Status == GOAPPlan.PlanStatus.Valid)
                 {

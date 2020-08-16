@@ -6,20 +6,16 @@ namespace AITests.GOAP.Actions
 {
     public class ActionGetToolFromCenter : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionGetToolFromCenter");
+            Debug.Log("Init ActionGetToolFromCenter preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.ToolAvailableInCenter, (Func<bool>) CheckToolAvailable);
-                AddPrecondition(WorldStateAttribute.HasTool, false);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.HasTool, true);  
-            }
+            Preconditions.AddState(WorldStateAttribute.HasTool, false);
+        }
+
+        public override void SetProceduralPreconditions()
+        {
+            Preconditions.AddState(WorldStateAttribute.ToolAvailableInCenter, (Func<bool>) CheckToolAvailable); // we always need to manually add procedural precondition
 
             // WE CAN USE THIS TO CHECK WHETHER A PRECONDITION IS PROCEDURAL OR NOT...
             // if (value.GetType().IsPrimitive) // primitive type, commonly a bool for now
@@ -27,6 +23,13 @@ namespace AITests.GOAP.Actions
             // {
 
             // }
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionGetToolFromCenter effects");
+
+            Effects.AddState(WorldStateAttribute.HasTool, true);
         }
 
         public override bool Run()

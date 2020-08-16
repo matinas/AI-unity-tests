@@ -4,19 +4,25 @@ namespace AITests.GOAP.Actions
 {
     public class ActionStoreToolInCenter : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionStoreToolInCenter");
+            Debug.Log("Init ActionStoreToolInCenter preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.ToolCrafted, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.ToolAvailableInCenter, true);
-            }
+            Preconditions.AddState(WorldStateAttribute.ToolCrafted, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionStoreToolInCenter effects");
+
+            Effects.AddState(WorldStateAttribute.ToolAvailableInCenter, true);
+        }
+
+        public override bool PostRun()
+        {
+            StorageManager.Instance.RegisterTool(1);
+
+            return true;
         }
 
         public override bool Run()

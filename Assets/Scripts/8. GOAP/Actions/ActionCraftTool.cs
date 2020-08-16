@@ -5,21 +5,24 @@ namespace AITests.GOAP.Actions
 {
     public class ActionCraftTool : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionCraftTool");
+            Debug.Log("Init ActionCraftTool preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, (Func<bool>) CheckMaterialsAvailable);
-                AddPrecondition(WorldStateAttribute.HasTool, false);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.HasTool, true);
-                AddEffect(WorldStateAttribute.ToolCrafted, true);
-            }
+            Preconditions.AddState(WorldStateAttribute.HasTool, false);
+        }
+
+        public override void SetProceduralPreconditions()
+        {
+            Preconditions.AddState(WorldStateAttribute.MaterialsAvailableForTool, (Func<bool>) CheckMaterialsAvailable);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionCraftTool effects");
+
+            Effects.AddState(WorldStateAttribute.HasTool, true);
+            Effects.AddState(WorldStateAttribute.ToolCrafted, true);
         }
 
         public override bool PreRun()
@@ -31,13 +34,6 @@ namespace AITests.GOAP.Actions
         public override bool Run()
         {
             return base.Run();
-        }
-
-        public override bool PostRun()
-        {
-            StorageManager.Instance.RegisterTool(1);
-
-            return true;
         }
 
         private bool CheckMaterialsAvailable()

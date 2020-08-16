@@ -5,21 +5,18 @@ namespace AITests.GOAP.Actions
 {
     public class ActionGetStone : GOAPAction
     {
-        public event Action OnStoneCollected;
-
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionGetStone");
+            Debug.Log("Init ActionGetStone preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.StoneCollected, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.StoneStored, true);   
-            }
+            Preconditions.AddState(WorldStateAttribute.StoneCollected, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionGetStone effects");
+
+            Effects.AddState(WorldStateAttribute.StoneStored, true);   
         }
 
         public override bool Run()

@@ -4,20 +4,19 @@ namespace AITests.GOAP.Actions
 {
     public class ActionWaitForMaterials : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionWaitForMaterials");
+            Debug.Log("Init ActionWaitForMaterials preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.MaterialsAvailableForTool, false);
-                AddPrecondition(WorldStateAttribute.HasTool, false);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.MaterialsAvailableForTool, true); 
-            }
+            Preconditions.AddState(WorldStateAttribute.MaterialsAvailableForTool, false);
+            Preconditions.AddState(WorldStateAttribute.HasTool, false);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionWaitForMaterials effects");
+
+            Effects.AddState(WorldStateAttribute.MaterialsAvailableForTool, true); 
         }
 
         public override bool Run()

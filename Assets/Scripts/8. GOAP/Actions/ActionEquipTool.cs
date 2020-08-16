@@ -5,19 +5,18 @@ namespace AITests.GOAP.Actions
 {
     public class ActionEquipTool : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionEquipTool");
+            Debug.Log("Init ActionEquipTool preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.HasTool, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.ToolEquipped, true);  
-            }
+            Preconditions.AddState(WorldStateAttribute.HasTool, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionEquipTool effects");
+
+            Effects.AddState(WorldStateAttribute.ToolEquipped, true);  
         }
 
         public override bool Run()

@@ -4,19 +4,18 @@ namespace AITests.GOAP.Actions
 {
     public class ActionCutWood : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionCutWood");
+            Debug.Log("Init ActionCutWood preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.ToolEquipped, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.WoodCollected, true);    
-            }
+            Preconditions.AddState(WorldStateAttribute.ToolEquipped, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionCutWood effects");
+
+            Effects.AddState(WorldStateAttribute.WoodCollected, true);
         }
 
         public override bool Run()

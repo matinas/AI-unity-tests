@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4aa30c3a4a7a34bbd9256623e194cf78, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2038,8 +2038,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486839412}
-  m_LocalRotation: {x: 0.23988369, y: 0.19727817, z: -0.04984106, w: 0.9492381}
-  m_LocalPosition: {x: -12.266626, y: 16.601482, z: -27.807583}
+  m_LocalRotation: {x: -0.17499925, y: -0.16746527, z: 0.030199643, w: -0.9697519}
+  m_LocalPosition: {x: -12.156643, y: 13.253988, z: -26.481077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2317,10 +2317,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Preconditions_Inspector: []
   Effects_Inspector: []
-  RangeRequired: 0
-  Target: {fileID: 0}
-  Cost: 0
-  Duration: 1
+  RangeRequired: 1
+  Target: {fileID: 596317457}
+  Cost: 15
+  Duration: 5
 --- !u!114 &505246688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   RangeRequired: 1
   Target: {fileID: 852013050}
   Cost: 8
-  Duration: 10
+  Duration: 3
 --- !u!114 &505246690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fda4fcedd67de4a870eec7a8a65014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Goal:
+  Goals:
   - Attr: 2
     Value: 1
 --- !u!114 &505246692
@@ -2442,9 +2442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac022cf737312e47b1fe066153b5263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preconditions_Inspector:
-  - Attr: 0
-    Value: 0
+  Preconditions_Inspector: []
   Effects_Inspector: []
   RangeRequired: 1
   Target: {fileID: 503469055}
@@ -3657,9 +3655,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bd4bc09e858574b9d6ebd99b9ec453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoneAmount_Debug: 5
+  StoneAmount_Debug: 1
   FishAmount_Debug: 0
-  WoodAmount_Debug: 5
+  WoodAmount_Debug: 1
   ToolAmount_Debug: 20
 --- !u!1001 &746332836
 PrefabInstance:
@@ -4339,7 +4337,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8679438, b: 0.8156817, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -4348,9 +4346,9 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Strength: 0.81
+    m_Bias: 0
+    m_NormalBias: 0
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
@@ -4362,7 +4360,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0.78
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4374,13 +4372,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013840197}
-  m_LocalRotation: {x: 0.3859178, y: -0.04125675, z: 0.03328047, w: 0.9210091}
+  m_LocalRotation: {x: 0.37989503, y: 0.07946607, z: 0.3150018, w: 0.8661056}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 45.530003, y: -4.118, z: 2.41}
+  m_LocalEulerAnglesHint: {x: 37.445004, y: 28.348001, z: 49.757004}
 --- !u!1001 &1030240010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5499,6 +5497,7 @@ GameObject:
   - component: {fileID: 1311444398}
   - component: {fileID: 1311444395}
   - component: {fileID: 1311444393}
+  - component: {fileID: 1311444401}
   - component: {fileID: 1311444399}
   m_Layer: 0
   m_Name: Miner
@@ -5664,7 +5663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fda4fcedd67de4a870eec7a8a65014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Goal: []
+  Goals:
+  - Attr: 2
+    Value: 1
 --- !u!114 &1311444398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5723,6 +5724,24 @@ MonoBehaviour:
   Target: {fileID: 503469055}
   Cost: 4
   Duration: 2
+--- !u!114 &1311444401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311444388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dd1a4a02d19884091f3be4334fc820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Preconditions_Inspector: []
+  Effects_Inspector: []
+  RangeRequired: 1
+  Target: {fileID: 503469055}
+  Cost: 0
+  Duration: 1
 --- !u!1001 &1339035386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8887,6 +8906,7 @@ GameObject:
   - component: {fileID: 2144830521}
   - component: {fileID: 2144830518}
   - component: {fileID: 2144830516}
+  - component: {fileID: 2144830524}
   - component: {fileID: 2144830522}
   m_Layer: 0
   m_Name: Fisherman
@@ -9052,7 +9072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fda4fcedd67de4a870eec7a8a65014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Goal: []
+  Goals:
+  - Attr: 2
+    Value: 1
 --- !u!114 &2144830521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9111,3 +9133,21 @@ MonoBehaviour:
   Target: {fileID: 503469055}
   Cost: 4
   Duration: 2
+--- !u!114 &2144830524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144830511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dd1a4a02d19884091f3be4334fc820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Preconditions_Inspector: []
+  Effects_Inspector: []
+  RangeRequired: 1
+  Target: {fileID: 503469055}
+  Cost: 0
+  Duration: 1

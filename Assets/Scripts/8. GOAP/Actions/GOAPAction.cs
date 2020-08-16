@@ -47,15 +47,26 @@ namespace AITests.GOAP.Actions
 
         private Coroutine WaitDurationCrt;
 
+        public abstract void SetFixedPreconditions();
+        public virtual void SetProceduralPreconditions() {}
+        public abstract void SetFixedEffects();
+
+        public virtual bool PreRun() { return true; } // validates whether the conditions are met at action's run time for the action to execute
+
+        public virtual bool PostRun() { return true; } // makes whatever update is needed after the action is completed (world state changes, agent state changes, etc)
+
         void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+
+            Preconditions = new WorldState();
+            Effects = new WorldState();
 
             if (Preconditions_Inspector.Length > 0)
             {
                 foreach (var prec in Preconditions_Inspector)
                 {
-                    AddPrecondition(prec.Attr, prec.Value);
+                    Preconditions.AddState(prec.Attr, prec.Value);
                 }
             }
 
@@ -63,7 +74,7 @@ namespace AITests.GOAP.Actions
             {
                 foreach (var effect in Effects_Inspector)
                 {
-                    AddEffect(effect.Attr, effect.Value);
+                    Effects.AddState(effect.Attr, effect.Value);
                 }
             }
 
@@ -85,7 +96,7 @@ namespace AITests.GOAP.Actions
 
                     if (!PreRun())
                     {
-                        Debug.Log("Action cannot be executed right now and will be aborted");
+                        Debug.Log($"Action {this.GetType().ToString()} cannot be executed right now and will be aborted");
 
                         OnActionAborted.Invoke();
                         Reset(); // get the action ready for the next plan execution (as they are re-used on demand)
@@ -104,18 +115,20 @@ namespace AITests.GOAP.Actions
             }
         }
 
-        public abstract void Init();
-
-        public virtual void Reset()
+        public void Init()
         {
-            _inRange = !RangeRequired;
-            _completed = false;
-            _agent.ResetPath();
+            if (Preconditions_Inspector == null || Preconditions_Inspector.Length == 0) // if there are no preconditions from the inspector, fill them manually
+            {
+                SetFixedPreconditions();
+            }
+
+            SetProceduralPreconditions(); // we always need to manually add procedural precondition
+            
+            if (Effects_Inspector == null || Effects_Inspector.Length == 0) // if there are no effects from the inspector, fill them manually
+            {
+                SetFixedEffects();
+            }
         }
-
-        public virtual bool PreRun() { return true; } // validates whether the conditions are met at action's run time for the action to execute
-
-        public virtual bool PostRun() { return true; } // makes whatever update is needed after the action is completed (world state changes, agent state changes, etc)
 
         public virtual bool Run()
         {
@@ -145,33 +158,32 @@ namespace AITests.GOAP.Actions
         }
 
         // checks whether the parameter state meets the requirement to execute the action
-        public bool AreRequirementsMet(WorldState state)
+        public bool AllPreconditionsMet(WorldState state)
         {
-            return Preconditions.States.All(x => MeetRequirements(x, state));
+            return Preconditions.States.All(x => IsPreconditionMet(x, state));
         }
 
         // returns all the action's preconditions that are not met for the given world state, or null if all are met
-        public Dictionary<WorldStateAttribute, object> GetNotMetRequirements(WorldState state)
+        public List<WorldStateKeyPair> GetNotMetPreconditions(WorldState state)
         {
-            Dictionary<WorldStateAttribute, object> notMet = new Dictionary<WorldStateAttribute, object>();
+            List<WorldStateKeyPair> notMet = new List<WorldStateKeyPair>();
 
             foreach (var prec in Preconditions.States)
             {
-                if (!MeetRequirements(prec, state))
+                if (!IsPreconditionMet(prec, state))
                 {
-                    if (notMet == null) notMet = new Dictionary<WorldStateAttribute, object>();
-                    notMet.Add(prec.Key, prec.Value);
+                    notMet.Add(NormalizePrecondition(prec));
                 }
             }
 
             return notMet;
         }
 
-        private bool MeetRequirements(KeyValuePair<WorldStateAttribute, object> prec, WorldState state)
+        private bool IsPreconditionMet(KeyValuePair<WorldStateAttribute, object> prec, WorldState state)
         {
             if (prec.Value.GetType().IsPrimitive) // primitive type, commonly a bool precondition for now
             {
-                return state.CheckState(prec.Key, prec.Value);
+                return state.CheckStateValue(prec.Key, prec.Value);
             }
             else if (prec.Value.GetType() == typeof(Func<bool>)) // procedural precondition
             {
@@ -181,15 +193,33 @@ namespace AITests.GOAP.Actions
             return false;
         }
 
+        // normalizes/evaluates a precondition in the sense that a simple primitive precondition with integer/bool values, will be just kept as it is,
+        // but a procedural precondition will be evaluated, and get assigned the opposite value of the check result (commonly true, as the procedural precs
+        // are of the form CheckMaterialAvailability, CheckToolAvailable, etc. and will evaluate to false if not met), so an effect that matches can be found later
+        private WorldStateKeyPair NormalizePrecondition(KeyValuePair<WorldStateAttribute, object> prec)
+        {
+            if (prec.Value.GetType().IsPrimitive) // primitive type, commonly a bool precondition for now
+            {
+                return new WorldStateKeyPair(prec.Key, prec.Value);
+            }
+            else if (prec.Value.GetType() == typeof(Func<bool>)) // procedural precondition
+            {
+                var procCheck = ((Func<bool>) prec.Value).Invoke();
+                return new WorldStateKeyPair(prec.Key, WorldState.NormalizeValue(!procCheck));
+            }
+
+            return new WorldStateKeyPair();
+        }
+
         // filters the actions passed as parameter to return only those that matchs the current action (effects matches any current action's preconditions)
         public IEnumerable<GOAPAction> Match(IEnumerable<GOAPAction> actions)
         {
             return actions.Where(x => MatchAny(x.Effects));
         }
 
-        public bool Match(KeyValuePair<WorldStateAttribute, int> ws)
+        public bool Match(WorldStateKeyPair ws)
         {
-            var b = Effects.CheckState(ws.Key, ws.Value);
+            var b = Effects.CheckStateValue(ws.Attr, ws.Value);
             return b;
         }
 
@@ -197,7 +227,7 @@ namespace AITests.GOAP.Actions
         {
             foreach (var prec in Preconditions.States)
             {
-                if (effects.CheckState(prec.Key, prec.Value))
+                if (effects.CheckStateValue(prec.Key, prec.Value))
                 {
                     return true;
                 }
@@ -206,24 +236,11 @@ namespace AITests.GOAP.Actions
             return false;
         }
 
-        protected void AddPrecondition(WorldStateAttribute attr, object value)
+        public void Reset()
         {
-            if (Preconditions == null)
-            {
-                Preconditions = new WorldState();
-            }
-
-            Preconditions.AddState(attr, value);
-        }
-
-        protected void AddEffect(WorldStateAttribute attr, object value)
-        {
-            if (Effects == null)
-            {
-                Effects = new WorldState();
-            }
-
-            Effects.AddState(attr, value);
+            _inRange = !RangeRequired;
+            _completed = false;
+            _agent.ResetPath();
         }
     }
 }

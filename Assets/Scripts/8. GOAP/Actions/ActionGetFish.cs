@@ -1,23 +1,21 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AITests.GOAP.Actions
 {
     public class ActionGetFish : GOAPAction
     {
-        public override void Init()
+        public override void SetFixedPreconditions()
         {
-            Debug.Log("Init ActionGetFish");
+            Debug.Log("Init ActionGetFish preconditions");
 
-            if (Preconditions == null) // if there are no preconditions from the inspector, fill them manually
-            {
-                AddPrecondition(WorldStateAttribute.FishCollected, true);
-            }
-            
-            if (Effects == null) // if there are no effects from the inspector, fill them manually
-            {
-                AddEffect(WorldStateAttribute.FishStored, true);    
-            }
+            Preconditions.AddState(WorldStateAttribute.FishCollected, true);
+        }
+
+        public override void SetFixedEffects()
+        {
+            Debug.Log("Init ActionGetFish effects");
+
+            Effects.AddState(WorldStateAttribute.FishStored, true); 
         }
 
         public override bool Run()

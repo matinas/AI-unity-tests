@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace AITests.GOAP
 {
@@ -22,12 +21,24 @@ namespace AITests.GOAP
     }
 
     [System.Serializable]
-    public class WorldStatePair
+    public class WorldStatePair // WorldState pair to be used for fields that needs to be filled through Inspector (assumes integer values)
     {
         public WorldStateAttribute Attr;
         public int Value;
 
         public WorldStatePair(WorldStateAttribute attr, int value)
+        {
+            Attr = attr;
+            Value = value;
+        }
+    }
+
+    public struct WorldStateKeyPair // WorldState pair to be used for representing single states of a WorldState through the code base (keeps object values)
+    {
+        public WorldStateAttribute Attr { get; private set; }
+        public object Value { get; private set; }
+
+        public WorldStateKeyPair(WorldStateAttribute attr, object value)
         {
             Attr = attr;
             Value = value;
@@ -42,18 +53,6 @@ namespace AITests.GOAP
         public WorldState()
         {
             States = new Dictionary<WorldStateAttribute, object>();
-
-            // AddState(WorldStateAttribute.ToolEquipped, false);
-            // AddState(WorldStateAttribute.MaterialsAvailableForTool, false);
-            // AddState(WorldStateAttribute.ToolAvailableInCenter, false);
-            // AddState(WorldStateAttribute.HasTool, false);
-            // AddState(WorldStateAttribute.StoneCollected, false);
-            // AddState(WorldStateAttribute.FishCollected, false);
-            // AddState(WorldStateAttribute.WoodCollected, false);
-            // AddState(WorldStateAttribute.StoneStored, false);
-            // AddState(WorldStateAttribute.FishStored, false);
-            // AddState(WorldStateAttribute.WoodStored, false);
-            // AddState(WorldStateAttribute.ToolCrafted, false);
         }
 
         public WorldState(Dictionary<WorldStateAttribute, object> states)
@@ -61,16 +60,22 @@ namespace AITests.GOAP
             States = states;
         }
 
+        public WorldState(WorldState worldState)
+        {
+            States = worldState.States.ToDictionary(x => x.Key, x=> x.Value);
+        }
+
         public void AddState(WorldStateAttribute attr, object value)
         {
-            if (value.GetType().IsPrimitive)
-            {
-                States.Add(attr, Convert.ToInt32(value));
-            }
-            else
-            {
-                States.Add(attr, value);
-            }
+            States.Add(attr, NormalizeValue(value));
+        }
+
+        // to unify the way we handle world state values, we are assuming they'll get assigned either
+        // a boolean or an integer (in which case the value will be converted/normalized to an integer),
+        // or a predicate function (case of Action's procedural preconditions, in which case it will be left as it is)
+        public static object NormalizeValue(object value)
+        {
+            return value.GetType().IsPrimitive ? Convert.ToInt32(value) : value;
         }
 
         public object RemoveState(WorldStateAttribute attr)
@@ -92,16 +97,19 @@ namespace AITests.GOAP
             {
                 AddState(attr, newValue);
             }
-
-            States[attr] = newValue;
+            else
+            {
+                States[attr] = newValue;
+            }
+            
             return true;
         }
 
-        public bool CheckState(WorldStateAttribute attr, object value)
+        public bool CheckStateValue(WorldStateAttribute attr, object value)
         {
             if (!States.ContainsKey(attr)) return false;
 
-            return States[attr].ToString() == value.ToString(); // kinda hacky, but was the workaround I found to the issue that comparing equal ints was always failing
+            return System.Object.Equals(States[attr], value); // doesn't work with == as it checks whether the memory locations of the objects are the same, while Equals() checks content/values
         }
 
         public object GetStateValue(WorldStateAttribute attr)
@@ -109,11 +117,6 @@ namespace AITests.GOAP
             if (!States.ContainsKey(attr)) return null; 
 
             return States[attr];
-        }
-
-        public int GetStateCount()
-        {
-            return States.Count;
         }
 
         public static WorldState operator+(WorldState ws1, WorldState ws2)
