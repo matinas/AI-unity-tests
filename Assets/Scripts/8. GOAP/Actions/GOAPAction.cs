@@ -242,5 +242,7 @@ namespace AITests.GOAP.Actions
             _completed = false;
             _agent.ResetPath();
         }
+
+        public float GetCost() { return Cost; }
     }
 }

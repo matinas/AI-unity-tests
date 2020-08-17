@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Linq;
 using AITests.GOAP.Actions;
+using AITests.GOAP.Planner;
 
 namespace AITests.GOAP
 {

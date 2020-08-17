@@ -15,14 +15,7 @@ namespace AITests.GOAP.Actions
 
         public override void SetProceduralPreconditions()
         {
-            Preconditions.AddState(WorldStateAttribute.ToolAvailableInCenter, (Func<bool>) CheckToolAvailable); // we always need to manually add procedural precondition
-
-            // WE CAN USE THIS TO CHECK WHETHER A PRECONDITION IS PROCEDURAL OR NOT...
-            // if (value.GetType().IsPrimitive) // primitive type, commonly a bool for now
-            // if (value.GetType() == typeof(Action)) // Action type, a boolean function
-            // {
-
-            // }
+            Preconditions.AddState(WorldStateAttribute.ToolAvailableInCenter, (Func<bool>) CheckToolAvailable);
         }
 
         public override void SetFixedEffects()
