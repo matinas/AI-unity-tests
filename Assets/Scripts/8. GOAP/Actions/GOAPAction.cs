@@ -130,7 +130,7 @@ namespace AITests.GOAP.Actions
             }
         }
 
-        public virtual bool Run()
+        public bool Run()
         {
             if (WaitDurationCrt == null)
             {

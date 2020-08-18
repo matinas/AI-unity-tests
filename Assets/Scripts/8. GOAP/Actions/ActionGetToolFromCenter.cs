@@ -25,15 +25,11 @@ namespace AITests.GOAP.Actions
             Effects.AddState(WorldStateAttribute.HasTool, true);
         }
 
-        public override bool Run()
+        public override bool PostRun()
         {
-            if (base.Run())
-            {
-                StorageManager.Instance.GetTool(1);
-                return true;
-            }
+            StorageManager.Instance.GetTool(1);
 
-            return false;
+            return true;
         }
 
         private bool CheckToolAvailable()

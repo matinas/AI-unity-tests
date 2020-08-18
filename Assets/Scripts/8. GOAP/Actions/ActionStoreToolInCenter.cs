@@ -24,10 +24,5 @@ namespace AITests.GOAP.Actions
 
             return true;
         }
-
-        public override bool Run()
-        {
-            return base.Run();
-        }
     }
 }

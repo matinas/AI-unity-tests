@@ -10,5 +10,13 @@ namespace AITests.GOAP.Actions
 
         WorldState Preconditions { get; set; }
         WorldState Effects { get; set; }
+
+        void SetFixedPreconditions();
+        void SetProceduralPreconditions();
+        void SetFixedEffects();
+
+        bool PreRun();
+        bool Run();
+        bool PostRun();
     }
 }

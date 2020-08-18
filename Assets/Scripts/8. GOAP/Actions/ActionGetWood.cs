@@ -18,15 +18,11 @@ namespace AITests.GOAP.Actions
             Effects.AddState(WorldStateAttribute.WoodStored, true);  
         }
 
-        public override bool Run()
+        public override bool PostRun()
         {
-            if (base.Run())
-            {
-                StorageManager.Instance.RegisterWood(10);
-                return true;
-            }
+            StorageManager.Instance.RegisterWood(10);
 
-            return false;
+            return true;
         }
     }
 }

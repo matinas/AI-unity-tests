@@ -19,15 +19,11 @@ namespace AITests.GOAP.Actions
             Effects.AddState(WorldStateAttribute.StoneStored, true);   
         }
 
-        public override bool Run()
+        public override bool PostRun()
         {
-            if (base.Run())
-            {
-                StorageManager.Instance.RegisterStone(10);
-                return true;
-            }
+            StorageManager.Instance.RegisterStone(10);
 
-            return false;
+            return true;
         }
     }
 }

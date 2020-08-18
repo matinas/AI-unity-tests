@@ -18,15 +18,11 @@ namespace AITests.GOAP.Actions
             Effects.AddState(WorldStateAttribute.FishStored, true); 
         }
 
-        public override bool Run()
+        public override bool PostRun()
         {
-            if (base.Run())
-            {
-                StorageManager.Instance.RegisterFish(10);
-                return true;
-            }
+            StorageManager.Instance.RegisterFish(10);
 
-            return false;
+            return true;
         }
     }
 }

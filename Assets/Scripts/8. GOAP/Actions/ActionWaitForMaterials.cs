@@ -18,10 +18,5 @@ namespace AITests.GOAP.Actions
 
             Effects.AddState(WorldStateAttribute.MaterialsAvailableForTool, true); 
         }
-
-        public override bool Run()
-        {
-            return base.Run();
-        }
     }
 }

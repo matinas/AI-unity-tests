@@ -2388,7 +2388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 2
+  - Attr: 9
     Value: 1
 --- !u!114 &505246692
 MonoBehaviour:
@@ -5664,7 +5664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 4
+  - Attr: 7
     Value: 1
 --- !u!114 &1311444398
 MonoBehaviour:
@@ -9073,7 +9073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 5
+  - Attr: 8
     Value: 1
 --- !u!114 &2144830521
 MonoBehaviour:

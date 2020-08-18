@@ -31,11 +31,6 @@ namespace AITests.GOAP.Actions
                    StorageManager.Instance.GetStone(2);
         }
 
-        public override bool Run()
-        {
-            return base.Run();
-        }
-
         private bool CheckMaterialsAvailable()
         {
             return StorageManager.Instance.WoodAmount > 2 &&

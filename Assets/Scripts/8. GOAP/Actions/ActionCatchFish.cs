@@ -17,10 +17,5 @@ namespace AITests.GOAP.Actions
 
             Effects.AddState(WorldStateAttribute.FishCollected, true);
         }
-
-        public override bool Run()
-        {
-            return base.Run();
-        }
     }
 }

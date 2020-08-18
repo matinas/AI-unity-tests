@@ -68,10 +68,11 @@ namespace AITests.GOAP.Planner
 
             // process the generated graph so to get the fulfilled action paths
             var actionPaths = ProcessPlannerGraph(dummyPlannerState);
+
+            // find the least costly path from the list of available-to-choose paths
             var bestActionPath = actionPaths.OrderBy(x => x.Cost).First();
 
-            //actionPlans.Reverse();
-            return new GOAPPlan(bestActionPath.Actions); // FIXME: returning the first plan for now, but it should be the less costly
+            return new GOAPPlan(bestActionPath.Actions);
         }
 
         private IEnumerable<GOAPPlannerPath> ProcessPlannerGraph(GOAPPlannerState state)
