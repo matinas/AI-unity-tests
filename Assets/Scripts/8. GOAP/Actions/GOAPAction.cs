@@ -243,6 +243,6 @@ namespace AITests.GOAP.Actions
             _agent.ResetPath();
         }
 
-        public float GetCost() { return Cost; }
+        public float GetCost() => Cost;
     }
 }

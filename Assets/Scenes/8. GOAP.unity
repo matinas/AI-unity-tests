@@ -2388,7 +2388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 0
+  - Attr: 2
     Value: 1
 --- !u!114 &505246692
 MonoBehaviour:
@@ -3655,10 +3655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bd4bc09e858574b9d6ebd99b9ec453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoneAmount_Debug: 1
-  FishAmount_Debug: 0
-  WoodAmount_Debug: 1
-  ToolAmount_Debug: 1
+  StoneAmount_Debug: 10
+  FishAmount_Debug: 10
+  WoodAmount_Debug: 10
+  ToolAmount_Debug: 5
 --- !u!1001 &746332836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5505,7 +5505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1311444389
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5664,7 +5664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 2
+  - Attr: 4
     Value: 1
 --- !u!114 &1311444398
 MonoBehaviour:
@@ -8914,7 +8914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &2144830512
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9073,7 +9073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goals:
-  - Attr: 2
+  - Attr: 5
     Value: 1
 --- !u!114 &2144830521
 MonoBehaviour:
