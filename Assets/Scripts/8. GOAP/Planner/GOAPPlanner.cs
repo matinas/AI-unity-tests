@@ -20,6 +20,7 @@ namespace AITests.GOAP.Planner
             }
         }
 
+        // Follows a simple Depth First Search approach, not A* (no heuristics taken into account to select paths)
         public GOAPPlan ComputePlan(List<GOAPAction> actions, WorldStateKeyPair goal, WorldState localState, WorldState worldState)
         {
             Stack<GOAPPlannerState> statesStack = new Stack<GOAPPlannerState>();
@@ -66,15 +67,14 @@ namespace AITests.GOAP.Planner
             }
 
             // process the generated graph so to get the fulfilled action paths
-            var actionPlans = ProcessPlannerGraph(dummyPlannerState);
-
-            // TODO: filter the different plans so to get the less costly of them
+            var actionPaths = ProcessPlannerGraph(dummyPlannerState);
+            var bestActionPath = actionPaths.OrderBy(x => x.Cost).First();
 
             //actionPlans.Reverse();
-            return new GOAPPlan(actionPlans.ElementAt(0)); // FIXME: returning the first plan for now, but it should be the less costly
+            return new GOAPPlan(bestActionPath.Actions); // FIXME: returning the first plan for now, but it should be the less costly
         }
 
-        private List<LinkedList<GOAPAction>> ProcessPlannerGraph(GOAPPlannerState state)
+        private IEnumerable<GOAPPlannerPath> ProcessPlannerGraph(GOAPPlannerState state)
         {
             if (state.Children.Count == 0)
             {
@@ -84,29 +84,29 @@ namespace AITests.GOAP.Planner
                 }
                 else
                 {
-                    var singleActionList = new LinkedList<GOAPAction>();
-                    singleActionList.AddFirst(state.CurrentAction);
+                    var singleActionPath = new GOAPPlannerPath();
+                    singleActionPath.AddAction(state.CurrentAction); // this also registers the cost for the action
 
-                    var listOfActions = new List<LinkedList<GOAPAction>>();
-                    listOfActions.Add(singleActionList);
+                    var listOfPaths = new List<GOAPPlannerPath>();
+                    listOfPaths.Add(singleActionPath);
 
-                    return listOfActions;
+                    return listOfPaths;
                 }
             }
             else
             {
-                List<LinkedList<GOAPAction>> actionList = new List<LinkedList<GOAPAction>>();
+                List<GOAPPlannerPath> actionList = new List<GOAPPlannerPath>();
                 foreach (var child in state.Children)
                 {
-                    var childActionLists = ProcessPlannerGraph(child);
+                    var childActionPaths = ProcessPlannerGraph(child);
 
-                    if (childActionLists != null) // add the current action to the children paths
+                    if (childActionPaths != null) // add the current action to the children paths
                     {
-                        foreach (var list in childActionLists)
+                        foreach (var path in childActionPaths)
                         {
-                            if (state.CurrentAction != null) list.AddFirst(state.CurrentAction); // avoids adding null for the actionless dummy node
+                            if (state.CurrentAction != null) path.AddAction(state.CurrentAction); // avoids adding null for the actionless dummy node
                         }
-                        actionList.AddRange(childActionLists);
+                        actionList.AddRange(childActionPaths);
                     }
                 }
 
