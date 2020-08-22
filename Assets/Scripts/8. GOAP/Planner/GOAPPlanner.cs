@@ -20,16 +20,19 @@ namespace AITests.GOAP.Planner
             }
         }
 
-        // Follows a simple Depth First Search approach, not A* (no heuristics taken into account to select paths)
+        // follows a simple Depth First Search approach to compute a plan, not A* (no heuristics taken into account to select paths)
         public GOAPPlan ComputePlan(List<GOAPAction> actions, WorldStateKeyPair goal, WorldState localState, WorldState worldState)
         {
-            Stack<GOAPPlannerState> statesStack = new Stack<GOAPPlannerState>();
+            Stack<GOAPPlannerState> statesStack = new Stack<GOAPPlannerState>(); // NOTE: we could have done it recursively instead of maintaining a stack of states
             WorldState globalState = localState + worldState;
 
             GOAPPlannerState dummyPlannerState = new GOAPPlannerState(actions, globalState); // this state is added just to maintain the complete set of available actions and
             dummyPlannerState.AddDesiredState(goal.Attr, goal.Value);                        // world state, but it won't have any plan's actions (kinda used to just represent the goal)
             
-            statesStack.Push(dummyPlannerState); // add the initial planner state to the stack (NOTE: we could have done it recursively instead of maintaining a states stack)
+            statesStack.Push(dummyPlannerState); // add the initial planner state to the stack
+
+            // the idea is to build a tree in which each path will be a potential plan that satisfies the goal as well as all the preconditions of the actions in between
+            // once generated, this tree can be traversed to find the less costly path (sequence of actions) to get the final plan to be returned
 
             GOAPPlannerState currPlannerState;
             while (statesStack.Count > 0)
@@ -127,7 +130,7 @@ namespace AITests.GOAP.Planner
                 newActionState.AddDesiredState(prec.Attr, prec.Value);
             }
 
-            newActionState.MarkFulfilled(notMetPrecs.Count == 0); // if there aren't any preconditions not met, we mark the state as already fulfilled (will be a branch in the states graph)
+            newActionState.MarkFulfilled(notMetPrecs.Count == 0); // if there aren't any preconditions not met, we mark the state as already fulfilled (will be a leaf node in the states graph)
 
             return newActionState;
         }
